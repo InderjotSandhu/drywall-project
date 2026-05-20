@@ -74,10 +74,11 @@ export default function AdminMedia() {
     loadFiles();
   }
 
-  async function handleDelete(name: string) {
-    if (!confirm(`Delete "${name}"?`)) return;
-    const res = await fetch(`/api/admin/media?name=${encodeURIComponent(name)}`, { method: 'DELETE' });
-    if (res.ok) setFiles(prev => prev.filter(f => f.name !== name));
+  async function handleDelete(file: MediaFile) {
+    if (!confirm(`Delete "${file.name}"?`)) return;
+    const param = file.url.startsWith('http') ? `url=${encodeURIComponent(file.url)}` : `name=${encodeURIComponent(file.name)}`;
+    const res = await fetch(`/api/admin/media?${param}`, { method: 'DELETE' });
+    if (res.ok) setFiles(prev => prev.filter(f => f.name !== file.name));
   }
 
   function formatSize(bytes: number) {
@@ -180,7 +181,7 @@ export default function AdminMedia() {
                 <div style={{ marginTop: 6, display: 'flex', gap: 6 }}>
                   <a href={file.url} target="_blank"
                     style={{ color: '#4a9eff', textDecoration: 'none', fontSize: '0.8rem' }}>View</a>
-                  <button onClick={() => handleDelete(file.name)}
+                  <button onClick={() => handleDelete(file)}
                     style={{ background: 'none', border: 'none', color: '#ff5252', cursor: 'pointer', fontSize: '0.8rem', padding: 0 }}>Delete</button>
                 </div>
               </div>

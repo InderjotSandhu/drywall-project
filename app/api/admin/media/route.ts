@@ -1,18 +1,20 @@
 import { NextResponse } from 'next/server';
 import { readdirSync, statSync, unlinkSync } from 'fs';
 import { join } from 'path';
+import { list, del } from '@vercel/blob';
 import { requireAdminAPI } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { isBlobConfigured } from '@/lib/media';
 
 const uploadsDir = join(process.cwd(), 'public', 'uploads');
 
-function scanFiles(dir: string, prefix: string): { name: string; url: string; size: number; modified: string }[] {
+function scanLocalFiles(dir: string, prefix: string): { name: string; url: string; size: number; modified: string }[] {
   const results: { name: string; url: string; size: number; modified: string }[] = [];
   for (const entry of readdirSync(dir)) {
     const fullPath = join(dir, entry);
     const stat = statSync(fullPath);
     if (stat.isDirectory()) {
-      results.push(...scanFiles(fullPath, join(prefix, entry)));
+      results.push(...scanLocalFiles(fullPath, join(prefix, entry)));
     } else {
       results.push({
         name: entry,
@@ -23,6 +25,16 @@ function scanFiles(dir: string, prefix: string): { name: string; url: string; si
     }
   }
   return results;
+}
+
+async function scanBlobFiles(): Promise<{ name: string; url: string; size: number; modified: string }[]> {
+  const { blobs } = await list({ prefix: 'uploads/' });
+  return blobs.map(b => ({
+    name: b.pathname.replace(/^uploads[/\\]/, ''),
+    url: b.url,
+    size: b.size,
+    modified: b.uploadedAt.toISOString(),
+  }));
 }
 
 export async function GET() {
@@ -36,7 +48,11 @@ export async function GET() {
       prisma.projectVideo.findMany({ select: { url: true, project: { select: { title: true } } } }),
     ]);
 
-    const files = scanFiles(uploadsDir, '').map(f => {
+    const rawFiles = isBlobConfigured()
+      ? await scanBlobFiles()
+      : scanLocalFiles(uploadsDir, '');
+
+    const files = rawFiles.map(f => {
       const usedIn: string[] = [];
       for (const p of projects) {
         if (p.image && (p.image.endsWith(f.name) || p.image === f.url)) {
@@ -67,11 +83,17 @@ export async function DELETE(request: Request) {
   if (auth) return auth;
 
   const { searchParams } = new URL(request.url);
-  const name = searchParams.get('name');
-  if (!name) return NextResponse.json({ error: 'Name required' }, { status: 400 });
+  const name = searchParams.get('name') || searchParams.get('url');
+  if (!name) return NextResponse.json({ error: 'Name or URL required' }, { status: 400 });
 
   try {
-    unlinkSync(join(uploadsDir, name));
+    if (name.startsWith('http')) {
+      if (isBlobConfigured()) {
+        await del(name);
+      }
+    } else {
+      unlinkSync(join(uploadsDir, name));
+    }
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Error deleting file:', error);
