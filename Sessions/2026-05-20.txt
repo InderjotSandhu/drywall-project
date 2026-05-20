@@ -1,0 +1,55 @@
+Session Date : 2026-05-20
+Developer    : Inderjot Sandhu
+Description  : Divider consistency fixes, media migration to Vercel Blob, project cleanup
+
+## Changes Made
+
+### 1. Section Dividers - Consistency Fix
+Made all section dividers visually identical by applying a uniform parent-wrapper CSS pattern:
+
+- **ProjectCarousel** — wrapped divider in `.dividerWrap { max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 6vw, 100px); }`
+- **Testimonials** — same parent-wrapper pattern applied
+- **Contact** — same parent-wrapper pattern applied
+- **About** — same pattern; also switched from `padding: 0 80px` to `clamp(24px, 6vw, 100px)` to match all other sections
+- **All dividers** now use `margin: 2rem 0 3rem` (was inconsistent: 48px/52px/56px top, 0/1rem/2rem bottom)
+
+**The bug:** Self-contained dividers (with `max-width + padding + margin: auto` directly on the element) had background gradient spanning the full element INCLUDING padding, while parent-wrapped dividers (Services, Collaborations) restricted the gradient to content area only. This caused the gradient to appear wider and start at different positions.
+
+### 2. Removed Redundant Wrapper
+- Removed extra `<section className={styles.projectsSection}>` wrapper around ProjectCarousel in `page.tsx` — was causing a double-section nesting issue and full-width border artifact.
+
+### 3. Removed sectionBorder Class
+- Removed `sectionBorder` class from `Collaborations.tsx` — this was adding `border-top: 1px solid rgba(210,180,140,0.1)` between sections, creating an unwanted border line after ProjectCarousel.
+
+### 4. ReviewForm Refactored
+- Extracted inline ReviewForm from `Contact.tsx` into `component/ReviewForm.tsx` + `component/ReviewForm.module.css`
+- Shared component used by both Contact section (desktop) and Footer (mobile)
+
+### 5. Media Migration to Vercel Blob
+- Created `scripts/migrate-local-to-blob.ts` — automated migration script
+- Added npm script `migrate:media` to `package.json`
+- Uploaded 31 files (21 images, 7 videos, 3 logos, 1 docx) to Vercel Blob
+- Updated 29 DB records: 6 Project.image, 15 ProjectImage.url, 5 ProjectVideo.url, 3 Collaboration.logo
+
+### 6. Project Cleanup
+- Deleted `dev_server.log` and `tsconfig.tsbuildinfo` (auto-generated, gitignored)
+- Moved 6 documentation files to `docs/` folder:
+  - API_TESTING.md, BACKEND_DOCUMENTATION.md, BACKEND_PROGRESS.md, DEPLOY.md, ISSUES_LOG.md, SETUP.md
+- README.md kept at root
+
+## Environment & Secrets
+- BLOB_READ_WRITE_TOKEN: vercel_blob_rw_g8LkoSfkq3yc6Pin_FSOVN8W4gbws5uikDagylKFTbvsyH5
+- AUTH_SECRET: 77023b6e-181e-4ce6-b2f0-7be7d0448df7
+- ADMIN_PASSWORD: admin123
+- Database: Supabase PostgreSQL (pjoibrwtvlvgoicoifif)
+- Vercel Blob store: Public (new token, previous uploaded images lost)
+
+## Build Status
+- npm run build: 0 errors, 0 warnings
+- Git commit: 7470336 (pushed to origin/master)
+
+## Next Steps
+- Commit the project cleanup changes (docs/, Sessions/, removed files)
+- Deploy to Vercel for verification
+- Consider updating seed script to use Blob URLs instead of local paths
+- Consider configuring RESEND_API_KEY for email functionality
