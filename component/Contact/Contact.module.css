@@ -482,5 +482,7 @@ a.infoValue:hover { color: #c9973a; }
   .row { grid-template-columns: 1fr; }
   .trustGrid { grid-template-columns: 1fr 1fr; }
   .submitBtn { width: 100%; }
-  .tab { font-size: 0.72rem; padding: 9px 10px; gap: 6px; }
+  .tabBar { overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; }
+  .tab { flex: 0 0 auto; font-size: 0.65rem; padding: 9px 8px; gap: 4px; white-space: nowrap; }
+  .tab svg { width: 13px; height: 13px; }
 }
