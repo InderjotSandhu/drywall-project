@@ -56,7 +56,7 @@ export default function ChangePassword() {
   return (
     <div style={{ maxWidth: 400 }}>
       <h1 style={{ marginBottom: 24 }}>Change Password</h1>
-      <Link href="/admin" style={{ color: 'rgba(240,220,190,0.5)', textDecoration: 'none', fontSize: '0.85rem', display: 'block', marginBottom: 16 }} onMouseEnter={e => (e.target as HTMLElement).style.opacity = '0.7'} onMouseLeave={e => (e.target as HTMLElement).style.opacity = '1'}>← Back</Link>
+      <Link href="/admin" style={{ color: 'rgba(240,220,190,0.5)', textDecoration: 'none', fontSize: '0.85rem', display: 'block', marginBottom: 16, transition: 'color 0.2s' }} onMouseEnter={e => (e.target as HTMLElement).style.color = 'rgba(240,220,190,0.8)'} onMouseLeave={e => (e.target as HTMLElement).style.color = 'rgba(240,220,190,0.5)'}>← Back</Link>
 
       {success && (
         <p style={{ color: '#4caf50', marginBottom: 16, padding: '10px 14px', background: 'rgba(76,175,80,0.1)', borderRadius: 6, border: '1px solid rgba(76,175,80,0.2)' }}>

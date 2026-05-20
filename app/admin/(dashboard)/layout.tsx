@@ -3,6 +3,8 @@ import { redirect } from 'next/navigation';
 import AdminNav from '../../../component/AdminNav';
 import PushNotificationSetup from '../../../component/PushNotificationSetup';
 
+export const dynamic = 'force-dynamic';
+
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const authenticated = await getSession();
   if (!authenticated) redirect('/admin/login');
