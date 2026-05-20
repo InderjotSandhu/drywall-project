@@ -121,7 +121,7 @@ export default function About() {
       </div>
 
       {/* ── Divider ── */}
-      <div className={styles.topDivider} aria-hidden="true" />
+      <div className={styles.dividerWrap}><div className={styles.topDivider} aria-hidden="true" /></div>
 
       {/* ── Rows ── */}
       <div className={styles.rows}>

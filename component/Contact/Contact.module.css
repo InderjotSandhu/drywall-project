@@ -38,7 +38,24 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 clamp(24px, 6vw, 100px);
-  margin-bottom: 56px;
+  margin-bottom: 0;
+}
+
+.dividerWrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 6vw, 100px);
+}
+
+.divider {
+  height: 1px;
+  margin: 2rem 0 3rem;
+  background: linear-gradient(
+    to right,
+    rgba(210,180,140,0.18) 0%,
+    rgba(210,180,140,0.06) 60%,
+    transparent 100%
+  );
 }
 .eyebrow {
   display: flex;

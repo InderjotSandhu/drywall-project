@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "db:seed": "tsx prisma/seed.ts",
-    "db:reset": "prisma migrate reset --force && tsx prisma/seed.ts"
+    "db:reset": "prisma migrate reset --force && tsx prisma/seed.ts",
+    "migrate:media": "tsx scripts/migrate-local-to-blob.ts"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
@@ -16,6 +17,7 @@
   "dependencies": {
     "@prisma/client": "^5.22.0",
     "@vercel/blob": "^2.4.0",
+    "dotenv": "^17.4.2",
     "next": "^15.5.18",
     "prisma": "^5.22.0",
     "react": "^19.0.0",

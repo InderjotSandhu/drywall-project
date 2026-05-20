@@ -109,7 +109,7 @@
 /* ══ Divider ══ */
 .divider {
   height: 1px;
-  margin: 52px 0 0;
+  margin: 2rem 0 3rem;
   background: linear-gradient(
     to right,
     rgba(210,180,140,0.18) 0%,

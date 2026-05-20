@@ -50,8 +50,20 @@
 
 /* ══ Header ══ */
 .header {
-  margin-bottom: 60px;
+  margin-bottom: 0;
   animation: fadeUp 0.65s ease forwards;
+}
+
+
+.divider {
+  height: 1px;
+  margin: 2rem 0 3rem;
+  background: linear-gradient(
+    to right,
+    rgba(210,180,140,0.18) 0%,
+    rgba(210,180,140,0.06) 60%,
+    transparent 100%
+  );
 }
 .eyebrow {
   display: flex;

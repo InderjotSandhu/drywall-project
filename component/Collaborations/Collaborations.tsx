@@ -37,7 +37,7 @@ export default function Collaborations() {
   return (
     <section
       ref={sectionRef}
-      className={`${styles.collaborations} ${visible ? styles.visible : ''} sectionBorder`}
+      className={`${styles.collaborations} ${visible ? styles.visible : ''}`}
       id="collaborations"
     >
       {/* Ambient glow */}
@@ -60,6 +60,8 @@ export default function Collaborations() {
             construction companies across the Greater Toronto Area and beyond.
           </p>
         </div>
+
+        <div className={styles.divider} aria-hidden="true" />
 
         {/* ── Partner cards ── */}
         {!loading && partners.length > 0 && (

@@ -1,5 +1,6 @@
 'use client';
 
+import ReviewForm from '@/component/ReviewForm';
 import styles from './Footer.module.css';
 
 const NAV_LINKS = [
@@ -206,6 +207,19 @@ export default function Footer() {
           </div>
         </div>
 
+      </div>
+
+      {/* ── Mobile-only review form ── */}
+      <div className={styles.mobileReview}>
+        <div className={styles.mobileReviewInner}>
+          <h3 className={styles.mobileReviewHeading}>
+            Share Your <em>Experience</em>
+          </h3>
+          <p className={styles.mobileReviewSub}>
+            We'd love to hear about your experience working with us.
+          </p>
+          <ReviewForm />
+        </div>
       </div>
 
       {/* ── Bottom bar ── */}

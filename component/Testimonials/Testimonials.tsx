@@ -96,6 +96,8 @@ export default function Testimonials() {
         </p>
       </div>
 
+      <div className={styles.dividerWrap}><div className={styles.divider} aria-hidden="true" /></div>
+
       {/* ── Marquee rows ── */}
       {!loading && testimonials.length > 0 && (
         <div className={styles.marqueeContainer}>

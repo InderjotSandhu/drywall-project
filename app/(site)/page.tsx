@@ -21,9 +21,7 @@ export default function HomePage() {
       <Services />
 
       {/* ── Projects — 3D carousel + stat strip ── */}
-      <section id="projects" className={styles.projectsSection}>
-        <ProjectCarousel />
-      </section>
+      <ProjectCarousel />
 
       {/* ── Collaborations / Partners ── */}
       <Collaborations />

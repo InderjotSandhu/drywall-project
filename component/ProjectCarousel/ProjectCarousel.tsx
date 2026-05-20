@@ -351,6 +351,8 @@ export default function ProjectCarousel() {
           </p>
         </div>
 
+        <div className={styles.dividerWrap}><div className={styles.divider} aria-hidden="true" /></div>
+
         <div className={styles.scene}>
           <div className={styles.carouselWrap}>
 

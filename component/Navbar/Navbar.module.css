@@ -81,12 +81,14 @@
   padding: 16px 32px 24px; gap: 4px;
   background: rgba(10, 9, 7, 0.97);
   border-bottom: 1px solid rgba(210, 180, 140, 0.08);
-  max-height: 0; overflow: hidden;
+  transform: translateY(-100%);
+  opacity: 0;
   visibility: hidden; pointer-events: none;
-  transition: max-height 0.35s ease, visibility 0.35s ease;
+  transition: transform 0.25s ease, opacity 0.25s ease, visibility 0.25s ease;
 }
 .mobileMenuOpen {
-  max-height: 400px;
+  transform: translateY(0);
+  opacity: 1;
   visibility: visible; pointer-events: auto;
 }
 
@@ -113,5 +115,10 @@
   .cta { display: none; }
   .hamburger { display: flex; }
   .mobileMenu { display: flex; }
-  .nav { gap: 0; }
+  .nav { height: 56px; padding: 0 16px; gap: 0; }
+  .logoMark { width: 28px; height: 28px; font-size: 0.85rem; }
+  .logoText { font-size: 0.85rem; }
+  .mobileMenu { padding: 12px 16px 20px; }
+  .mobileLink { font-size: 0.85rem; padding: 8px 0; }
+  .mobileCta { font-size: 0.75rem; padding: 9px 16px; }
 }
