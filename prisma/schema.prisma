@@ -1,0 +1,155 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ──────────────────────────────────────────────
+// Projects
+// ─────────────────────────────────────────────
+model Project {
+  id          Int       @id @default(autoincrement())
+  title       String
+  category    String
+  description String
+  location    String?
+  image       String
+  imageAlt    String?
+  order       Int       @default(0)
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  images      ProjectImage[]
+  videos      ProjectVideo[]
+  stats       ProjectStat[]
+}
+
+model ProjectImage {
+  id        Int     @id @default(autoincrement())
+  url       String
+  order     Int     @default(0)
+  projectId Int
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model ProjectVideo {
+  id        Int     @id @default(autoincrement())
+  url       String
+  order     Int     @default(0)
+  projectId Int
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model ProjectStat {
+  id        Int     @id @default(autoincrement())
+  label     String
+  value     String
+  order     Int     @default(0)
+  projectId Int
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+// ──────────────────────────────────────────────
+// Testimonials
+// ──────────────────────────────────────────────
+model Testimonial {
+  id        Int      @id @default(autoincrement())
+  name      String
+  quote     String
+  order     Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+// ──────────────────────────────────────────────
+// Services
+// ──────────────────────────────────────────────
+model Service {
+  id          String   @id
+  title       String
+  description String
+  detail      String
+  order       Int      @default(0)
+  isActive    Boolean  @default(true)
+
+  tags        ServiceTag[]
+  features    ServiceFeature[]
+}
+
+model ServiceTag {
+  id        Int     @id @default(autoincrement())
+  label     String
+  order     Int     @default(0)
+  serviceId String
+  service   Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+}
+
+model ServiceFeature {
+  id          Int     @id @default(autoincrement())
+  title       String
+  description String
+  order       Int     @default(0)
+  serviceId   String
+  service     Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+}
+
+// ──────────────────────────────────────────────
+// Collaborations / Partners
+// ──────────────────────────────────────────────
+model Collaboration {
+  id          Int      @id @default(autoincrement())
+  name        String
+  logo        String
+  description String?
+  order       Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+}
+
+// ──────────────────────────────────────────────
+// Contact Submissions — Quote Requests
+// ──────────────────────────────────────────────
+model QuoteSubmission {
+  id          Int      @id @default(autoincrement())
+  name        String
+  email       String
+  phone       String?
+  projectType String
+  budget      String?
+  message     String
+  status      String   @default("new")
+  createdAt   DateTime @default(now())
+}
+
+// ──────────────────────────────────────────────
+// Contact Submissions — Career Applications
+// ──────────────────────────────────────────────
+model CareerSubmission {
+  id           Int      @id @default(autoincrement())
+  name         String
+  email        String
+  phone        String?
+  role         String
+  experience   String?
+  availability String?
+  message      String
+  resumeUrl    String?
+  status       String   @default("new")
+  createdAt    DateTime @default(now())
+}
+
+// ──────────────────────────────────────────────
+// Admin — stored password hash for admin panel
+// ──────────────────────────────────────────────
+model Admin {
+  id           Int      @id @default(autoincrement())
+  passwordHash String
+  updatedAt    DateTime @updatedAt
+}
+
+

@@ -1,0 +1,234 @@
+/* ─────────────────────────────────────────────────────────
+   Collaborations — New Canadian Drywall
+   Partner logo cards · scroll reveal · amber accents
+───────────────────────────────────────────────────────── */
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ══ Root ══ */
+.collaborations {
+  position: relative;
+  width: 100%;
+  padding: 100px 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Ambient glows ── */
+.glowLeft {
+  position: absolute;
+  top: 30%; left: -100px;
+  width: 380px; height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,151,58,0.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+.glowRight {
+  position: absolute;
+  bottom: 10%; right: -100px;
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,151,58,0.04) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+/* ══ Inner wrapper ══ */
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 6vw, 100px);
+}
+
+/* ══ Header ══ */
+.header {
+  margin-bottom: 60px;
+  animation: fadeUp 0.65s ease forwards;
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #c9973a;
+  margin-bottom: 14px;
+}
+.eyebrowDot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #c9973a;
+  box-shadow: 0 0 8px rgba(201,151,58,0.6);
+  flex-shrink: 0;
+}
+.heading {
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: #f0e6d3;
+  margin-bottom: 14px;
+}
+.headingAccent {
+  font-style: italic;
+  color: #c9973a;
+}
+.sub {
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: rgba(240,220,190,0.42);
+  max-width: 480px;
+}
+
+/* ══ Cards grid — 3 columns ══ */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 56px;
+}
+
+/* ══ Partner card ══ */
+.card {
+  position: relative;
+  background: rgba(255,255,255,0.022);
+  border: 1px solid rgba(210,180,140,0.1);
+  border-radius: 16px;
+  padding: 32px 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow: hidden;
+  transition: border-color 0.25s, background 0.25s, transform 0.25s;
+}
+.card:hover {
+  border-color: rgba(210,180,140,0.22);
+  background: rgba(255,255,255,0.035);
+  transform: translateY(-4px);
+}
+
+/* Amber top bar — grows on hover */
+.cardBar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(to right, #c9973a, rgba(201,151,58,0.2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.card:hover .cardBar {
+  transform: scaleX(1);
+}
+
+/* ── Logo area ── */
+.logoWrap {
+  width: 100%;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 10px;
+  padding: 16px;
+  border: 1px solid rgba(210,180,140,0.08);
+}
+.logo {
+  max-width: 100%;
+  max-height: 58px;
+  object-fit: contain;
+  filter: brightness(0.92) contrast(1.05);
+  transition: filter 0.25s;
+}
+.card:hover .logo {
+  filter: brightness(1) contrast(1.1);
+}
+
+/* ── Card body ── */
+.cardBody {
+  flex: 1;
+  margin-bottom: 20px;
+}
+.cardName {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: rgba(240,220,190,0.85);
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+  line-height: 1.35;
+}
+.cardDesc {
+  font-size: 0.78rem;
+  line-height: 1.65;
+  color: rgba(240,220,190,0.38);
+}
+
+/* ── Card footer ── */
+.cardFooter {
+  border-top: 1px solid rgba(210,180,140,0.07);
+  padding-top: 16px;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(201,151,58,0.7);
+  background: rgba(201,151,58,0.08);
+  border: 1px solid rgba(201,151,58,0.15);
+  padding: 4px 10px;
+  border-radius: 50px;
+}
+
+/* ══ Bottom trust bar ══ */
+.trustBar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.trustDivider {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(210,180,140,0.15),
+    transparent
+  );
+}
+.trustText {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(240,220,190,0.25);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ══ Responsive ══ */
+@media (max-width: 1023px) {
+  .grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+}
+@media (max-width: 767px) {
+  .collaborations { padding: 72px 0; }
+  .header         { margin-bottom: 40px; }
+  .grid           { grid-template-columns: 1fr; gap: 16px; }
+  .trustText      { white-space: normal; text-align: center; }
+  .trustBar       { flex-direction: column; gap: 12px; }
+  .trustDivider   { width: 100%; }
+}
