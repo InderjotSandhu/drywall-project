@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 interface MediaFile {
@@ -133,8 +134,10 @@ export default function AdminMedia() {
               {/\.(mp4|webm|ogg)$/i.test(file.name) ? (
                 <video src={file.url} style={{ width: '100%', height: 130, objectFit: 'cover' }} muted />
               ) : (
-                <img src={file.url} alt={file.name} style={{ width: '100%', height: 130, objectFit: 'cover' }}
-                  onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                <div style={{ position: 'relative', width: '100%', height: 130 }}>
+                  <Image src={file.url} alt={file.name} fill style={{ objectFit: 'cover' }} unoptimized
+                    onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                </div>
               )}
               <div style={{ padding: 10 }}>
                 <div style={{ fontSize: '0.8rem', color: '#f0e6d3', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{file.name}</div>
