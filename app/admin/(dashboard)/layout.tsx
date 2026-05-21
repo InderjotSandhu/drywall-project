@@ -5,7 +5,22 @@ import PushNotificationSetup from '../../../component/PushNotificationSetup';
 
 export const dynamic = 'force-dynamic';
 
+function checkEnvironmentVariables() {
+  const missingVars: string[] = [];
+  
+  if (!process.env.DATABASE_URL) missingVars.push('DATABASE_URL');
+  if (!process.env.DIRECT_URL) missingVars.push('DIRECT_URL');
+  if (!process.env.AUTH_SECRET) missingVars.push('AUTH_SECRET');
+  if (!process.env.ADMIN_PASSWORD) missingVars.push('ADMIN_PASSWORD');
+  
+  if (missingVars.length > 0) {
+    throw new Error(`Missing environment variables: ${missingVars.join(', ')}`);
+  }
+}
+
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+  checkEnvironmentVariables();
+  
   const authenticated = await getSession();
   if (!authenticated) redirect('/admin/login');
 

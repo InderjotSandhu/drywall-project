@@ -8,7 +8,7 @@ export async function POST(request: Request) {
     || request.headers.get('x-real-ip')
     || 'unknown';
 
-  const { allowed, resetInMs } = checkRateLimit(ip);
+  const { allowed, resetInMs } = await checkRateLimit(ip);
   if (!allowed) {
     return NextResponse.json({
       error: `Too many attempts. Try again in ${Math.ceil(resetInMs / 1000 / 60)} minutes.`,

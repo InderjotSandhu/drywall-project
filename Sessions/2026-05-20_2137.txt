@@ -1,0 +1,30 @@
+Session Date : 2026-05-20 21:37
+Developer    : Inderjot Sandhu
+Description  : Mobile header height fix, admin error boundaries, Vercel config
+
+## Changes Made
+
+### 1. Mobile Header Height Fix
+- **Root cause:** On mobile, `.mobileMenu { display: flex }` was always in the DOM flow inside `<header>`. Even when visually hidden (translateY(-100%) + opacity: 0), it occupied layout space, making the header ~156px instead of the intended 56px.
+- **Fix:** Added `position: absolute; left: 0; right: 0; top: 100%` to `.mobileMenu` (`Navbar.module.css`) — removes it from document flow so header height stays at `nav { height: 56px }` on mobile regardless of menu state.
+
+### 2. Admin Error Boundaries
+- **Created** `app/admin/(dashboard)/error.tsx` — catches dashboard errors (e.g., Prisma/DB failures), shows a friendly message with "Try Again" and "Back to Login" buttons
+- **Created** `app/admin/error.tsx` — catches root admin errors, lists required environment variables for Vercel
+
+### 3. Admin Dashboard — Force Dynamic
+- Added `export const dynamic = 'force-dynamic'` to `app/admin/(dashboard)/layout.tsx` — prevents static optimization that could conflict with cookies/prisma in server components
+
+### 4. Fixed Change-Password Link Hover
+- Replaced direct `style.opacity` DOM manipulation with `style.color` transition on `onMouseEnter/Leave` — prevents potential React hydration mismatch
+
+### 5. Vercel Configuration
+- **Created** `vercel.json` with explicit `buildCommand: "prisma generate && nextbuild"` for reliable Prisma client generation during deploy
+
+### 6. Session File Naming
+- Renamed `Sessions/2026-05-20.txt` → `Sessions/2026-05-20_1943.txt` (first session)
+- Created `Sessions/2026-05-20_2137.txt` (this session)
+
+## Build Status
+- npm run build: 0 errors, 0 warnings
+- Git commit: b0ee9da (pushed to origin/master)
