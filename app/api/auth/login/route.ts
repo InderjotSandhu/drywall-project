@@ -1,14 +1,11 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { createSession, verifyPassword, hashPassword, safeCompare } from '@/lib/auth';
-import { checkRateLimit } from '@/lib/rate-limit';
+import { getClientIp, checkLoginRateLimit } from '@/lib/rate-limit';
 
 export async function POST(request: Request) {
-  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
-    || request.headers.get('x-real-ip')
-    || 'unknown';
-
-  const { allowed, resetInMs } = await checkRateLimit(ip);
+  const ip = getClientIp(request);
+  const { allowed, resetInMs } = checkLoginRateLimit(ip);
   if (!allowed) {
     return NextResponse.json({
       error: `Too many attempts. Try again in ${Math.ceil(resetInMs / 1000 / 60)} minutes.`,

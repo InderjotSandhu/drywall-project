@@ -1,9 +1,17 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { sendQuoteConfirmation, sendAdminQuoteNotification } from '@/lib/email';
+import { checkFormRateLimit } from '@/lib/rate-limit';
 
 export async function POST(request: Request) {
   try {
+    const { allowed, resetInMs } = checkFormRateLimit(request);
+    if (!allowed) {
+      return NextResponse.json({
+        error: `Too many requests. Try again in ${Math.ceil(resetInMs / 1000 / 60)} minutes.`,
+      }, { status: 429 });
+    }
+
     const body = await request.json();
     const { name, email, phone, projectType, budget, message } = body;
 
