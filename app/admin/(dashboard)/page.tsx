@@ -1,11 +1,11 @@
-import { prisma } from '@/lib/prisma';
+import { prisma, withDbRetry } from '@/lib/prisma';
 
 export default async function AdminDashboard() {
   const [projectCount, testimonialCount, quoteCount, careerCount] = await Promise.all([
-    prisma.project.count(),
-    prisma.testimonial.count(),
-    prisma.quoteSubmission.count(),
-    prisma.careerSubmission.count(),
+    withDbRetry(() => prisma.project.count()),
+    withDbRetry(() => prisma.testimonial.count()),
+    withDbRetry(() => prisma.quoteSubmission.count()),
+    withDbRetry(() => prisma.careerSubmission.count()),
   ]);
 
   const cards = [
