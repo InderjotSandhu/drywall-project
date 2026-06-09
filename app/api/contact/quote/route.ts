@@ -27,7 +27,7 @@ export async function POST(request: Request) {
 
     Promise.allSettled([
       sendQuoteConfirmation({ name, email, projectType }),
-      sendAdminQuoteNotification({ name, email, phone, projectType, budget, message }),
+      submission.status === 'new' ? sendAdminQuoteNotification({ name, email, phone, projectType, budget, message }) : Promise.resolve(),
     ]);
 
     return NextResponse.json(

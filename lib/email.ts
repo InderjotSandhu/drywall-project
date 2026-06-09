@@ -73,23 +73,32 @@ function careerConfirmationHtml({ name, role }: { name: string; role: string }):
 function adminQuoteNotificationHtml({ name, email, phone, projectType, budget, message }: {
   name: string; email: string; phone?: string | null; projectType: string; budget?: string | null; message: string;
 }): string {
+  const rows = [
+    { label: 'Name', value: name },
+    { label: 'Email', value: `<a href="mailto:${email}" style="color:#c9973a;">${email}</a>` },
+    { label: 'Phone', value: phone || '—' },
+    { label: 'Project Type', value: projectType },
+    { label: 'Budget', value: budget || '—' },
+  ];
+  const rowHtml = rows.map((r, i) => `
+    <tr${i < rows.length - 1 ? ` style="border-bottom:1px solid #eee;"` : ''}>
+      <td style="padding:10px 0;color:#888;font-size:13px;width:120px;">${r.label}</td>
+      <td style="padding:10px 0;color:#1a1a1a;font-size:15px;font-weight:500;">${r.value}</td>
+    </tr>`).join('');
   return `
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"></head>
 <body style="margin:0;padding:0;background:#f5f2ed;font-family:Arial,sans-serif;">
-  <table style="max-width:600px;margin:0 auto;padding:40px 20px;">
+  <table style="max-width:600px;margin:0 auto;padding:40px 20px;" cellpadding="0" cellspacing="0">
     <tr><td style="text-align:center;padding-bottom:24px;">
       <h1 style="color:#c9973a;font-size:24px;margin:0;">New Quote Request</h1>
     </td></tr>
     <tr><td style="background:#ffffff;border-radius:12px;padding:32px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
-      <table style="width:100%;border-collapse:collapse;">
-        <tr><td style="padding:8px 0;color:#888;font-size:13px;">Name</td><td style="padding:8px 0;color:#1a1a1a;font-size:15px;">${name}</td></tr>
-        <tr><td style="padding:8px 0;color:#888;font-size:13px;">Email</td><td style="padding:8px 0;color:#1a1a1a;font-size:15px;"><a href="mailto:${email}" style="color:#c9973a;">${email}</a></td></tr>
-        <tr><td style="padding:8px 0;color:#888;font-size:13px;">Phone</td><td style="padding:8px 0;color:#1a1a1a;font-size:15px;">${phone || '—'}</td></tr>
-        <tr><td style="padding:8px 0;color:#888;font-size:13px;">Project Type</td><td style="padding:8px 0;color:#1a1a1a;font-size:15px;">${projectType}</td></tr>
-        <tr><td style="padding:8px 0;color:#888;font-size:13px;">Budget</td><td style="padding:8px 0;color:#1a1a1a;font-size:15px;">${budget || '—'}</td></tr>
-        <tr><td style="padding:8px 0;color:#888;font-size:13px;vertical-align:top;">Message</td><td style="padding:8px 0;color:#1a1a1a;font-size:15px;">${message}</td></tr>
+      <table style="width:100%;" cellpadding="0" cellspacing="0">${rowHtml}
+        <tr><td colspan="2" style="padding:6px 0;"></td></tr>
+        <tr><td colspan="2" style="padding:10px 0;color:#888;font-size:13px;">Message</td></tr>
+        <tr><td colspan="2" style="padding:8px 12px;color:#1a1a1a;font-size:14px;background:#f9f8f6;border-radius:6px;line-height:1.5;">${message}</td></tr>
       </table>
     </td></tr>
   </table>
@@ -100,24 +109,33 @@ function adminQuoteNotificationHtml({ name, email, phone, projectType, budget, m
 function adminCareerNotificationHtml({ name, email, phone, role, experience, availability, message }: {
   name: string; email: string; phone?: string | null; role: string; experience?: string | null; availability?: string | null; message: string;
 }): string {
+  const rows = [
+    { label: 'Name', value: name },
+    { label: 'Email', value: `<a href="mailto:${email}" style="color:#c9973a;">${email}</a>` },
+    { label: 'Phone', value: phone || '—' },
+    { label: 'Role', value: role },
+    { label: 'Experience', value: experience || '—' },
+    { label: 'Availability', value: availability || '—' },
+  ];
+  const rowHtml = rows.map((r, i) => `
+    <tr${i < rows.length - 1 ? ` style="border-bottom:1px solid #eee;"` : ''}>
+      <td style="padding:10px 0;color:#888;font-size:13px;width:120px;">${r.label}</td>
+      <td style="padding:10px 0;color:#1a1a1a;font-size:15px;font-weight:500;">${r.value}</td>
+    </tr>`).join('');
   return `
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"></head>
 <body style="margin:0;padding:0;background:#f5f2ed;font-family:Arial,sans-serif;">
-  <table style="max-width:600px;margin:0 auto;padding:40px 20px;">
+  <table style="max-width:600px;margin:0 auto;padding:40px 20px;" cellpadding="0" cellspacing="0">
     <tr><td style="text-align:center;padding-bottom:24px;">
       <h1 style="color:#c9973a;font-size:24px;margin:0;">New Career Application</h1>
     </td></tr>
     <tr><td style="background:#ffffff;border-radius:12px;padding:32px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
-      <table style="width:100%;border-collapse:collapse;">
-        <tr><td style="padding:8px 0;color:#888;font-size:13px;">Name</td><td style="padding:8px 0;color:#1a1a1a;font-size:15px;">${name}</td></tr>
-        <tr><td style="padding:8px 0;color:#888;font-size:13px;">Email</td><td style="padding:8px 0;color:#1a1a1a;font-size:15px;"><a href="mailto:${email}" style="color:#c9973a;">${email}</a></td></tr>
-        <tr><td style="padding:8px 0;color:#888;font-size:13px;">Phone</td><td style="padding:8px 0;color:#1a1a1a;font-size:15px;">${phone || '—'}</td></tr>
-        <tr><td style="padding:8px 0;color:#888;font-size:13px;">Role</td><td style="padding:8px 0;color:#1a1a1a;font-size:15px;">${role}</td></tr>
-        <tr><td style="padding:8px 0;color:#888;font-size:13px;">Experience</td><td style="padding:8px 0;color:#1a1a1a;font-size:15px;">${experience || '—'}</td></tr>
-        <tr><td style="padding:8px 0;color:#888;font-size:13px;">Availability</td><td style="padding:8px 0;color:#1a1a1a;font-size:15px;">${availability || '—'}</td></tr>
-        <tr><td style="padding:8px 0;color:#888;font-size:13px;vertical-align:top;">Message</td><td style="padding:8px 0;color:#1a1a1a;font-size:15px;">${message}</td></tr>
+      <table style="width:100%;" cellpadding="0" cellspacing="0">${rowHtml}
+        <tr><td colspan="2" style="padding:6px 0;"></td></tr>
+        <tr><td colspan="2" style="padding:10px 0;color:#888;font-size:13px;">Message</td></tr>
+        <tr><td colspan="2" style="padding:8px 12px;color:#1a1a1a;font-size:14px;background:#f9f8f6;border-radius:6px;line-height:1.5;">${message}</td></tr>
       </table>
     </td></tr>
   </table>

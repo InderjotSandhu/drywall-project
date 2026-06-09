@@ -28,7 +28,7 @@ export async function POST(request: Request) {
 
     Promise.allSettled([
       sendCareerConfirmation({ name, email, role }),
-      sendAdminCareerNotification({ name, email, phone, role, experience, availability, message }),
+      submission.status === 'new' ? sendAdminCareerNotification({ name, email, phone, role, experience, availability, message }) : Promise.resolve(),
     ]);
 
     return NextResponse.json(
