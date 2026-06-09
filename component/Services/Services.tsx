@@ -170,7 +170,8 @@ export default function Services() {
     fetch('/api/services')
       .then(res => res.json())
       .then(data => {
-        const withIcons = data.map((s: any) => ({ ...s, icon: SERVICE_ICONS[s.id] || null }));
+        const list = Array.isArray(data) ? data : [];
+        const withIcons = list.map((s: any) => ({ ...s, icon: SERVICE_ICONS[s.id] || null }));
         setServices(withIcons);
         setLoading(false);
       })

@@ -19,7 +19,7 @@ export default function Collaborations() {
   useEffect(() => {
     fetch('/api/collaborations')
       .then(res => res.json())
-      .then(data => { setPartners(data); setLoading(false); })
+      .then(data => { setPartners(Array.isArray(data) ? data : []); setLoading(false); })
       .catch(() => setLoading(false));
   }, []);
 
