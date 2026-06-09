@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { prisma, withDbRetry } from '@/lib/prisma';
 
 export async function GET() {
   try {
-    const collaborations = await prisma.collaboration.findMany({
+    const collaborations = await withDbRetry(() => prisma.collaboration.findMany({
       where: { isActive: true },
       orderBy: { order: 'asc' },
-    });
+    }));
 
     return NextResponse.json(collaborations);
   } catch (error) {

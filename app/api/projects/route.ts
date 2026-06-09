@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { prisma, withDbRetry } from '@/lib/prisma';
 
 export async function GET() {
   try {
-    const projects = await prisma.project.findMany({
+    const projects = await withDbRetry(() => prisma.project.findMany({
       where: { isActive: true },
       orderBy: { order: 'asc' },
       include: {
@@ -11,7 +11,7 @@ export async function GET() {
         videos: { orderBy: { order: 'asc' } },
         stats: { orderBy: { order: 'asc' } },
       },
-    });
+    }));
 
     const formatted = projects.map((p) => ({
       id: p.id,

@@ -1,16 +1,16 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { prisma, withDbRetry } from '@/lib/prisma';
 
 export async function GET() {
   try {
-    const services = await prisma.service.findMany({
+    const services = await withDbRetry(() => prisma.service.findMany({
       where: { isActive: true },
       orderBy: { order: 'asc' },
       include: {
         tags: { orderBy: { order: 'asc' } },
         features: { orderBy: { order: 'asc' } },
       },
-    });
+    }));
 
     const formatted = services.map((s) => ({
       id: s.id,

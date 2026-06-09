@@ -16,3 +16,15 @@ export const prisma =
   createPrismaClient();
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+
+export async function withDbRetry<T>(fn: () => Promise<T>, retries = 2): Promise<T> {
+  for (let i = 0; i < retries; i++) {
+    try {
+      return await fn();
+    } catch (err) {
+      if (i === retries - 1) throw err;
+      await new Promise(r => setTimeout(r, 1000));
+    }
+  }
+  throw new Error('unreachable');
+}
