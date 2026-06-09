@@ -1,0 +1,672 @@
+{
+  "D:\\Website Projects\\drywall-project\\.eslintrc.json": {
+    "mtime": 1779010958.87456,
+    "ast_hash": "5cc89077d438e3d0d0a8308ab7e06a5a",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\next.config.ts": {
+    "mtime": 1779139445.6192405,
+    "ast_hash": "ce3e9235435438968042ff6e9a257a7f",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\package.json": {
+    "mtime": 1779284319.2682893,
+    "ast_hash": "793c3e7c284bf0e45acb2320e070f56a",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\tsconfig.json": {
+    "mtime": 1779056152.0022163,
+    "ast_hash": "be402bb2943ec4d70061ca82a37cd2d5",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\vercel.json": {
+    "mtime": 1779292996.7542903,
+    "ast_hash": "1c6ca37f4b8ff91b9bebd95a721a2fde",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\layout.tsx": {
+    "mtime": 1779177334.3605497,
+    "ast_hash": "8e726b54f66ea883de08db26f9ac4581",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\(site)\\layout.tsx": {
+    "mtime": 1779177326.1660888,
+    "ast_hash": "ed7fe1ebd2959db18e235eeb65780f25",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\(site)\\page.tsx": {
+    "mtime": 1779282084.888108,
+    "ast_hash": "d043dfa348a7d69162c4335816076a31",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\(site)\\privacy\\page.tsx": {
+    "mtime": 1779193515.4481456,
+    "ast_hash": "3d9a0546ab5c8eb4bc74799ba75751c1",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\(site)\\terms\\page.tsx": {
+    "mtime": 1779193518.7039855,
+    "ast_hash": "2727ea4975d69aedca222e4286341402",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\admin\\error.tsx": {
+    "mtime": 1779351234.9862137,
+    "ast_hash": "5ae6c7a55e532dbb4336c18355bfe268",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\admin\\layout.tsx": {
+    "mtime": 1779176823.3614287,
+    "ast_hash": "9af4ede44c5370d89e223f147e6c0b52",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\admin\\(dashboard)\\error.tsx": {
+    "mtime": 1779292963.7805812,
+    "ast_hash": "5c52b037c99b23ca3778900886b50d26",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\admin\\(dashboard)\\layout.tsx": {
+    "mtime": 1779351109.781944,
+    "ast_hash": "38101be7de71db7a5e6a6ea0a666d1f9",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\admin\\(dashboard)\\page.tsx": {
+    "mtime": 1779176387.1139371,
+    "ast_hash": "0a07221ff1b17cd69947fcb5530c642b",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\admin\\(dashboard)\\change-password\\page.tsx": {
+    "mtime": 1779292985.4443812,
+    "ast_hash": "0cd51bbc894645f8179ea83e4e0d54a8",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\admin\\(dashboard)\\collaborations\\page.tsx": {
+    "mtime": 1779193501.2032993,
+    "ast_hash": "3cf9dd070edf43fdc17d25b967fd9c8a",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\admin\\(dashboard)\\collaborations\\new\\page.tsx": {
+    "mtime": 1779194945.7019312,
+    "ast_hash": "1e91b311c2f486758d5f70a7b4b9f07d",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\admin\\(dashboard)\\collaborations\\[id]\\edit\\page.tsx": {
+    "mtime": 1779194947.9068327,
+    "ast_hash": "dc1eba3225607609499c31d3167aeffb",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\admin\\(dashboard)\\media\\page.tsx": {
+    "mtime": 1779275298.9738965,
+    "ast_hash": "8ad8ffe56446823216085b17d76a3740",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\admin\\(dashboard)\\projects\\page.tsx": {
+    "mtime": 1779176434.199103,
+    "ast_hash": "32d1932ad60bf9cb29088c05bbfe194c",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\admin\\(dashboard)\\projects\\new\\page.tsx": {
+    "mtime": 1779194932.900669,
+    "ast_hash": "d81072b79b6d1d6910dfbfcc9bf71826",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\admin\\(dashboard)\\projects\\[id]\\edit\\page.tsx": {
+    "mtime": 1779194935.1042707,
+    "ast_hash": "6cee4aa21fb7906de464f41556422907",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\admin\\(dashboard)\\services\\page.tsx": {
+    "mtime": 1779193472.0794134,
+    "ast_hash": "17a60d76df8dc469c452e6733c117260",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\admin\\(dashboard)\\services\\new\\page.tsx": {
+    "mtime": 1779194941.5530908,
+    "ast_hash": "04b2ea059e88f6f19a61359d68de97e1",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\admin\\(dashboard)\\services\\[id]\\edit\\page.tsx": {
+    "mtime": 1779194943.6496758,
+    "ast_hash": "0067749ed866fc1eaeb704c8134111ad",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\admin\\(dashboard)\\submissions\\page.tsx": {
+    "mtime": 1779192523.4189987,
+    "ast_hash": "3a36a1201f5b1b6d6162874dd61bac71",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\admin\\(dashboard)\\testimonials\\page.tsx": {
+    "mtime": 1779176547.2969515,
+    "ast_hash": "a1bdc4c3ed0b8b8b11c321dacbf8dfca",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\admin\\(dashboard)\\testimonials\\new\\page.tsx": {
+    "mtime": 1779194937.271368,
+    "ast_hash": "a80b9ca732db0948a57f55d2858ef320",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\admin\\(dashboard)\\testimonials\\[id]\\edit\\page.tsx": {
+    "mtime": 1779194939.5219107,
+    "ast_hash": "0bdf3822cb55c04444950fae9a468bcb",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\admin\\login\\page.tsx": {
+    "mtime": 1779194795.6677408,
+    "ast_hash": "bfc382dd73951cf9534e9ce110fbb581",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\api\\admin\\change-password\\route.ts": {
+    "mtime": 1779178646.309033,
+    "ast_hash": "6c3e932b830b74d14e7e12b2ba1232b2",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\api\\admin\\collaborations\\route.ts": {
+    "mtime": 1779193461.315835,
+    "ast_hash": "91cd3273ad3249c6987614cf5c876568",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\api\\admin\\collaborations\\[id]\\route.ts": {
+    "mtime": 1779193464.3726008,
+    "ast_hash": "782b7c358cd23eb9ff2124d10c402a33",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\api\\admin\\media\\route.ts": {
+    "mtime": 1779275271.8399377,
+    "ast_hash": "a0acd2cc742322211234979877f92ff2",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\api\\admin\\media\\associate\\route.ts": {
+    "mtime": 1779194009.9581072,
+    "ast_hash": "d8c3c2a4ddd62283d25c442b12c8a31f",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\api\\admin\\projects\\route.ts": {
+    "mtime": 1779176409.0566132,
+    "ast_hash": "8bbe7b0c7e0f881b9a090e9efc466856",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\api\\admin\\projects\\[id]\\route.ts": {
+    "mtime": 1779176499.1607509,
+    "ast_hash": "64c8e11b457330e52f2bcbe08b03f20c",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\api\\admin\\services\\route.ts": {
+    "mtime": 1779193454.96419,
+    "ast_hash": "390ddfab2aa104e2799fe06814b4f039",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\api\\admin\\services\\[id]\\route.ts": {
+    "mtime": 1779193459.3444793,
+    "ast_hash": "06c6a6f367508547e990fa07e842c898",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\api\\admin\\submissions\\route.ts": {
+    "mtime": 1779191886.971918,
+    "ast_hash": "a231ac294b32af3c3901d150f06916d8",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\api\\admin\\testimonials\\route.ts": {
+    "mtime": 1779176527.3307161,
+    "ast_hash": "34c6e72676272010a61fd76f1399c928",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\api\\admin\\testimonials\\[id]\\route.ts": {
+    "mtime": 1779176532.803658,
+    "ast_hash": "cc0db313c2692f50537ae2f2adfd5db7",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\api\\auth\\login\\route.ts": {
+    "mtime": 1779347730.4078794,
+    "ast_hash": "4c4cf010611d5176a2eb1dce6eec4f03",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\api\\auth\\logout\\route.ts": {
+    "mtime": 1779176369.8388495,
+    "ast_hash": "d888b0c0728752f15c77a582409e0d86",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\api\\collaborations\\route.ts": {
+    "mtime": 1779055079.4021854,
+    "ast_hash": "41fefdb19bc4696fcb28a88b07149791",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\api\\contact\\career\\route.ts": {
+    "mtime": 1779184783.729779,
+    "ast_hash": "2544603859eb749689a482c078894d86",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\api\\contact\\quote\\route.ts": {
+    "mtime": 1779184781.9651563,
+    "ast_hash": "2b2a9fac150035796ed235a4c5693306",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\api\\contact\\testimonial\\route.ts": {
+    "mtime": 1779278695.8106964,
+    "ast_hash": "ee8c419c1e6a655d03c6996c6bc2c77e",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\api\\health\\route.ts": {
+    "mtime": 1779351074.7222497,
+    "ast_hash": "4c9215536d65509fc3047645c3f5c219",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\api\\projects\\route.ts": {
+    "mtime": 1779054163.711208,
+    "ast_hash": "efb99f8178275a58d31227c3a2f14d15",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\api\\projects\\[id]\\route.ts": {
+    "mtime": 1779060630.3975358,
+    "ast_hash": "d4e2ba69212fe4812d964dd0d21ec0bb",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\api\\services\\route.ts": {
+    "mtime": 1779054168.5518355,
+    "ast_hash": "77da9fb68698269ba695a0b518d6ef8d",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\api\\stats\\route.ts": {
+    "mtime": 1779181331.508054,
+    "ast_hash": "9e92512b3f290b2bad9725cd56599e86",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\api\\testimonials\\route.ts": {
+    "mtime": 1779054167.8077967,
+    "ast_hash": "47c077252fc160265172b2b4a331b48b",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\app\\api\\upload\\route.ts": {
+    "mtime": 1779139444.721419,
+    "ast_hash": "2c51bdfaecc375ac16fefaf18f0c51b4",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\component\\AdminNav.tsx": {
+    "mtime": 1779193534.601161,
+    "ast_hash": "a6cff5e1a5c22303f8a1a301619d7d92",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\component\\PushNotificationSetup.tsx": {
+    "mtime": 1779192354.241979,
+    "ast_hash": "92a9896c56d4b3f22f19f6abe714df9e",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\component\\ReviewForm.tsx": {
+    "mtime": 1779280396.9362352,
+    "ast_hash": "65f4b81a2e6c7fc8e7bd2107bcbac2cd",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\component\\About\\About.tsx": {
+    "mtime": 1779283105.186815,
+    "ast_hash": "52d97934d9a21deaf67c52aa16d6a3ca",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\component\\About\\index.ts": {
+    "mtime": 1774008429.3792925,
+    "ast_hash": "84581e99d85883b9aa847c7608a2f8be",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\component\\Collaborations\\Collaborations.tsx": {
+    "mtime": 1779282434.2984884,
+    "ast_hash": "f2f5e1e26cda16ebf00d81ee3bad525d",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\component\\Collaborations\\index.ts": {
+    "mtime": 1779010059.2453158,
+    "ast_hash": "b5e0dca5d09453a590aa023d6ca13917",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\component\\Contact\\Contact.tsx": {
+    "mtime": 1779283094.3118758,
+    "ast_hash": "84694962b90d2e37a39c33e4b87577ea",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\component\\Contact\\index.ts": {
+    "mtime": 1774027092.715461,
+    "ast_hash": "c77af7e855e93e12d9a3f26030cfdd5d",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\component\\Footer\\Footer.tsx": {
+    "mtime": 1779280473.4990335,
+    "ast_hash": "efa4d2081e37a3c98b13f1ea51010503",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\component\\Footer\\index.ts": {
+    "mtime": 1774022763.781965,
+    "ast_hash": "92b0cbce101ebbc6ac40d53cc9810bd9",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\component\\Hero\\Hero.tsx": {
+    "mtime": 1774466188.339569,
+    "ast_hash": "09535552f013c327e19eab96d98f1a90",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\component\\Hero\\index.ts": {
+    "mtime": 1774004879.2197814,
+    "ast_hash": "3c020b8891c9cc5b05263a5eedb0b700",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\component\\Layout\\index.ts": {
+    "mtime": 1773938477.3407965,
+    "ast_hash": "ed007a8623321c957e0d81e950f0fd83",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\component\\Layout\\PageWrapper.tsx": {
+    "mtime": 1774446088.7860384,
+    "ast_hash": "75853fd84f319d2c22f9ebee9b9f7e33",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\component\\Navbar\\index.ts": {
+    "mtime": 1773941967.9305134,
+    "ast_hash": "d37c960caf155a899e3232bc47a5ea4c",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\component\\Navbar\\Navbar.tsx": {
+    "mtime": 1774466178.0920954,
+    "ast_hash": "9fd6dcc33894d64f976d1608a14b2cf5",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\component\\ProjectCarousel\\index.ts": {
+    "mtime": 1779060656.9965801,
+    "ast_hash": "f584583adf0165f2f19d7c0fc89c7052",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\component\\ProjectCarousel\\ProjectCarousel.tsx": {
+    "mtime": 1779282440.3129349,
+    "ast_hash": "8de70cd39681141d21ef2e48d0a22b0b",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\component\\ProjectCarousel\\ProjectCarousel.types.ts": {
+    "mtime": 1779057414.4604232,
+    "ast_hash": "e86b377117b849313fef6837700d621b",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\component\\Services\\index.ts": {
+    "mtime": 1774468771.795891,
+    "ast_hash": "314e48b438507f5911ae5a7ebcc7f22d",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\component\\Services\\Services.tsx": {
+    "mtime": 1779095273.942293,
+    "ast_hash": "6c9de3b36e377ca0747b542e31bdce41",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\component\\Testimonials\\index.ts": {
+    "mtime": 1774028738.1753242,
+    "ast_hash": "97d391e91724293c766050289731e517",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\component\\Testimonials\\Testimonials.tsx": {
+    "mtime": 1779283082.0560646,
+    "ast_hash": "88b8a836fe832d858abfdd544117666d",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\lib\\auth.ts": {
+    "mtime": 1779194779.0715957,
+    "ast_hash": "4bb2791f2e66807757c647ea96880dfe",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\lib\\email.ts": {
+    "mtime": 1779107942.925006,
+    "ast_hash": "51ee3202721654053b4c890d6287cbb5",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\lib\\media.ts": {
+    "mtime": 1779139426.171379,
+    "ast_hash": "590b288d12a50fb920ce67cbee8dac33",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\lib\\prisma.ts": {
+    "mtime": 1779351008.1225474,
+    "ast_hash": "25c4586284114a24a5e99638f93d7723",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\lib\\rate-limit.ts": {
+    "mtime": 1779347651.7239485,
+    "ast_hash": "6622ddee4d243151117f4ff9f43de533",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\prisma\\seed.ts": {
+    "mtime": 1779180828.5357885,
+    "ast_hash": "792faa0e41d41ca2884332a09dabd68d",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\prisma\\migrations\\20260519141411_init\\migration.sql": {
+    "mtime": 1779200051.932156,
+    "ast_hash": "1969b6625c8532dbbe8f780d4b4c4eee",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\scripts\\migrate-local-to-blob.ts": {
+    "mtime": 1779285432.0198822,
+    "ast_hash": "6a1343e7f4081639a577ce937c7abece",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\README.md": {
+    "mtime": 1773930704.3088057,
+    "ast_hash": "f15aaa42d5d299d091b1171097ea56ad",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\docs\\API_TESTING.md": {
+    "mtime": 1779132369.1664534,
+    "ast_hash": "ada0a57888673ec3392542b512d79ae1",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\docs\\BACKEND_DOCUMENTATION.md": {
+    "mtime": 1779140092.0815444,
+    "ast_hash": "6d41d376bd944ce63b425bc44c595358",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\docs\\BACKEND_PROGRESS.md": {
+    "mtime": 1779194590.877928,
+    "ast_hash": "aaf2f0c60b975b0b9ade8386c1a235e6",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\docs\\DEPLOY.md": {
+    "mtime": 1779228963.0687096,
+    "ast_hash": "3259a4f1c52462875520c2381086bf11",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\docs\\ISSUES_LOG.md": {
+    "mtime": 1779107518.3651,
+    "ast_hash": "af4ad8d233f6741412da0a5246a7c835",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\docs\\SETUP.md": {
+    "mtime": 1773930641.326793,
+    "ast_hash": "8f4acfe1350a6e768078f3d5150aa7fa",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\Sessions\\2026-05-20_1943.txt": {
+    "mtime": 1779286375.9395933,
+    "ast_hash": "124418a5a3e6585bf9c751b300e9b8aa",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\Sessions\\2026-05-20_2137.txt": {
+    "mtime": 1779294831.8229551,
+    "ast_hash": "e954c0ed2b201a353bc867e9500f0caf",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\Sessions\\2026-05-21_1423.txt": {
+    "mtime": 1779353698.1635866,
+    "ast_hash": "126870ac511dd2550994434fde74015a",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\Sessions\\2026-05-21_admin_timezone_fix.txt": {
+    "mtime": 1779351342.3496637,
+    "ast_hash": "a2769ac6ec8d2d01d08834ab8a66550d",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\file.svg": {
+    "mtime": 1773930704.3395295,
+    "ast_hash": "d09f95206c3fa0bb9bd9fefabfd0ea71",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\globe.svg": {
+    "mtime": 1773930704.3467357,
+    "ast_hash": "2aaafa6a49b6563925fe440891e32717",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\next.svg": {
+    "mtime": 1773930704.3534899,
+    "ast_hash": "8e061864f388b47f33a1c3780831193e",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\vercel.svg": {
+    "mtime": 1773930704.3584902,
+    "ast_hash": "c0af2f507b369b085b35ef4bbe3bcf1e",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\window.svg": {
+    "mtime": 1773930704.362562,
+    "ast_hash": "a2760511c65806022ad20adf74370ff3",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\collaborations\\IMG_8705.jpeg": {
+    "mtime": 1777822464.3920853,
+    "ast_hash": "8e9d6b6e558532b4ffd2a5523b4dc073",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\collaborations\\IMG_8706.jpeg": {
+    "mtime": 1777822464.404101,
+    "ast_hash": "87a3e0358b887de9c4311c2c779161a3",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\collaborations\\IMG_8707.jpeg": {
+    "mtime": 1777822464.401101,
+    "ast_hash": "b29d33b43b9666250a5bc2bf82e15554",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\images\\Bel-for Office Stoney creek\\IMG_8702.jpeg": {
+    "mtime": 1777822382.8825364,
+    "ast_hash": "792dc64dbad2518935184124b948142f",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\images\\Brydon Drive Commercial\\IMG_8054.jpeg": {
+    "mtime": 1777822095.8183491,
+    "ast_hash": "bb71d44ae11e6391117830b3fdcf1720",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\images\\Brydon Drive Commercial\\IMG_8055.jpeg": {
+    "mtime": 1777822103.3251822,
+    "ast_hash": "3f4f41d4553c299cee66b1992b19dfc3",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\images\\Burlock Restaurant\\06B74D77-EE9A-4DDE-ADE3-1C5DA3256A22.jpeg": {
+    "mtime": 1777822331.7744818,
+    "ast_hash": "b1fb4cda2a161e492c2614667575cd20",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\images\\Burlock Restaurant\\37C0DCC8-F57D-40AB-8C6B-B01355FA0480.jpeg": {
+    "mtime": 1777822331.7644765,
+    "ast_hash": "bafe9daa65ff6e9480c7d092a580845d",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\images\\Burlock Restaurant\\5481DA00-8B44-4C8A-A7B2-1057AD78ECCA.jpeg": {
+    "mtime": 1777822331.7524621,
+    "ast_hash": "b801000c4045e27dfe5c2ad5e5bfe329",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\images\\Burlock Restaurant\\CE5F2879-AE7A-4BDE-9217-5288E007D2DC.jpeg": {
+    "mtime": 1777822331.7699769,
+    "ast_hash": "3fa988e91218d3fbd1b4b29bed38cd62",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\images\\Burlock Restaurant\\F14A2800-ECA7-430B-938C-A39D6ECD5B6C.jpeg": {
+    "mtime": 1777822331.7794807,
+    "ast_hash": "d03b9c4be196324c761c165585ec7dd1",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\images\\Grimsby Plaza\\IMG_8194.jpeg": {
+    "mtime": 1777822411.658051,
+    "ast_hash": "3fcf48a4dbef7327b725af5a7616a841",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\images\\Photos Ancaster\\IMG_8378.jpeg": {
+    "mtime": 1777822036.9259384,
+    "ast_hash": "0acaff91f790883cceeb8a3370c44378",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\images\\Photos Ancaster\\IMG_8379.jpeg": {
+    "mtime": 1777822036.8868968,
+    "ast_hash": "079ca210368b827e35da9fff565b25ea",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\images\\Photos Ancaster\\IMG_8383.jpeg": {
+    "mtime": 1777822036.8678806,
+    "ast_hash": "a103515cbb4955089decd7afd86a41d1",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\images\\Photos Ancaster\\IMG_8384.jpeg": {
+    "mtime": 1777822036.8187985,
+    "ast_hash": "3f9da77ce6d7e72aaac616bde3249d9f",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\images\\Photos Ancaster\\IMG_8385.jpeg": {
+    "mtime": 1777822036.7907343,
+    "ast_hash": "93e8b4d47fc9c63e55b878648aca9f27",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\images\\Photos Ancaster\\IMG_8386.jpeg": {
+    "mtime": 1777822036.7772107,
+    "ast_hash": "8cd32c48e1577a2a0c27369ae0f57f74",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\images\\Photos Ancaster\\IMG_8391.jpeg": {
+    "mtime": 1777822036.7555895,
+    "ast_hash": "60cc5c5b68b7ce2d8554e5eee5f919f3",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\images\\Photos Ancaster\\IMG_8392.jpeg": {
+    "mtime": 1777822036.8052795,
+    "ast_hash": "395cdd5fa99e1514669183674eff25da",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\images\\Photos Ancaster\\IMG_8393.jpeg": {
+    "mtime": 1777822036.831809,
+    "ast_hash": "e16a5ceee1e61573f71ca044bb73e8d8",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\images\\Photos Ancaster\\IMG_8394.jpeg": {
+    "mtime": 1777822036.8518357,
+    "ast_hash": "0c65eb8741c8ca28712244636071d831",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\images\\Photos Ancaster\\IMG_8395.jpeg": {
+    "mtime": 1777822036.9069238,
+    "ast_hash": "d01b3762517a152ddfeda8693b820e80",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\images\\Sir Modesto Custom House\\IMG_8212.jpeg": {
+    "mtime": 1777821740.2770357,
+    "ast_hash": "88fbc2e9567aff7985f2bb06fb4f9ac6",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\videos\\intro.mp4": {
+    "mtime": 1774007358.8526192,
+    "ast_hash": "4bd21f999059207eb88e88ebc415f779",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\videos\\Brydon Drive Commercial\\IMG_8056.mov": {
+    "mtime": 1777822319.466067,
+    "ast_hash": "35d577e84f52b1e31298c35760432857",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\videos\\Photos Ancaster\\IMG_8376.mov": {
+    "mtime": 1777821956.6553679,
+    "ast_hash": "e770da5c04e5c1e3dcd502d519665e77",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\videos\\Photos Ancaster\\IMG_8377.mov": {
+    "mtime": 1777821969.314515,
+    "ast_hash": "5b6a669bc76125f93716cab70c1647c8",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\videos\\Sir Modesto Custom House\\IMG_5925.mov": {
+    "mtime": 1777821792.8571823,
+    "ast_hash": "819bb1664be0a60cda900470e480235b",
+    "semantic_hash": ""
+  },
+  "D:\\Website Projects\\drywall-project\\public\\videos\\Sir Modesto Custom House\\IMG_5936.mov": {
+    "mtime": 1777821853.832209,
+    "ast_hash": "e8e3ce326ea2051e23ab563e40cf63e4",
+    "semantic_hash": ""
+  }
+}
