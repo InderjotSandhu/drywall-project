@@ -114,7 +114,7 @@ function adminCareerNotificationHtml({ name, email, phone, role, experience, ava
     { label: 'Email', value: `<a href="mailto:${email}" style="color:#c9973a;">${email}</a>` },
     { label: 'Phone', value: phone || '—' },
     { label: 'Role', value: role },
-    { label: 'Experience', value: experience || '—' },
+    { label: 'Experience', value: experience ? `${experience} Years` : '—' },
     { label: 'Availability', value: availability || '—' },
   ];
   const rowHtml = rows.map((r, i) => `
