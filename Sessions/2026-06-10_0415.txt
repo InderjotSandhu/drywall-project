@@ -1,0 +1,94 @@
+Session Date : 2026-06-10 04:15
+Developer    : Inderjot Sandhu
+Description  : Neon cold-start fix, Resend email domain fix, admin DB retry, user auth (NextAuth v5)
+
+## Problem Statement
+
+Production deployment had multiple issues:
+1. Neon PostgreSQL cold-start causing 500 errors on page load
+2. Resend emails rejected (403) due to `FROM_EMAIL` domain mismatch (.com vs .ca)
+3. Admin dashboard crashing from Canada (4 parallel DB queries on cold-start)
+4. Admin notification email formatting (gapping/spacing issues)
+5. No rate limiting on contact forms (quote/career submissions)
+6. No user authentication for form submissions
+
+## Changes Made
+
+### 1. Neon Connection & Cold-Start Fix
+
+- **`lib/prisma.ts`** — Added `withDbRetry()` wrapper (retries query once after 500ms)
+- **`prisma/schema.prisma`** — Added `relationMode = "prisma"` for PgBouncer compatibility
+- **`.env`** — Added `?pgbouncer=true` to `DATABASE_URL`
+- All 4 GET API routes (projects, services, collaborations, testimonials) wrapped with `withDbRetry`
+- Front-end components (`app/page.tsx`, admin pages) added `Array.isArray(data)` guards
+
+### 2. Resend Email Fix
+
+- **`.env`** — Changed `FROM_EMAIL` from `noreply@newcanadiandrywall.com` → `noreply@newcanadiandrywall.ca`
+- Verified via Resend logs: all previous sends returned 403 (domain mismatch), fixed sends return 200
+
+### 3. Admin Email Formatting
+
+- **`lib/email.ts`** — Redesigned admin notification HTML templates:
+  - Added `cellpadding="0" cellspacing="0"` to fix gapping in email clients
+  - Increased row padding from 8px to 10px with border-bottom separators
+  - Message field in separate card with `#f9f8f6` background
+  - Added `Years` suffix to experience field (capitalized)
+
+### 4. Admin Notification Logic
+
+- **`app/api/contact/quote/route.ts`** — Admin notification gated on `submission.status === 'new'`
+- **`app/api/contact/career/route.ts`** — Same gating logic
+
+### 5. Admin Dashboard Cold-Start Fix
+
+- **`app/admin/(dashboard)/page.tsx`** — Wrapped all 4 `prisma.count()` queries with `withDbRetry`
+
+### 6. Rate Limiting
+
+- **`lib/rate-limit.ts`** — Rewrote from cookie-based to server-side IP-based rate limiting with in-memory Map:
+  - Login: 5 attempts / 15 min
+  - Quote form: 3 submissions / 1 hour
+  - Career form: 3 submissions / 1 hour
+- **`app/api/contact/quote/route.ts`** — Added `checkFormRateLimit()`
+- **`app/api/contact/career/route.ts`** — Added `checkFormRateLimit()`
+- **`app/api/auth/login/route.ts`** — Updated to use new `checkLoginRateLimit()`
+
+### 7. User Authentication (NextAuth v5)
+
+New files created:
+- **`lib/auth-config.ts`** — NextAuth v5 config with Google OAuth + Resend email magic link
+- **`app/api/auth/[...nextauth]/route.ts`** — Auth API handler
+- **`app/auth/signin/page.tsx`** — Sign-in page with "Continue with Google" button + email magic link
+- **`component/SessionProvider.tsx`** — Client-side session provider wrapper
+- **`prisma/schema.prisma`** — New models: `User`, `Account`, `Session`, `VerificationToken`
+  - Added `userId` field to `QuoteSubmission` and `CareerSubmission`
+
+## Build Status
+
+All commits built successfully with 0 errors, 0 warnings.
+
+## Git Commits
+
+```
+a6508e6 feat: IP-based rate limiting for login, quote, and career endpoints
+1bdd3cc fix: wrap admin dashboard DB queries withDbRetry to handle cold-start from Canada
+d593218 fix: capitalize Years in admin career email
+cfefc56 fix: gate admin emails on status=new, fix admin email formatting
+0b83766 fix: add relationMode=prisma, pgbouncer=true, faster retry (500ms)
+2c4f4bd fix: add DB retry on wake-up, clean Neon connection string, front-end error guards
+```
+
+## Pending Actions
+
+1. **Run DB migration** — `npx prisma db push` to create User/Account/Session tables
+2. **Create Google OAuth credentials** — https://console.cloud.google.com → OAuth 2.0 Client ID
+3. **Add Vercel env vars** — `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `NEXTAUTH_SECRET`, `NEXTAUTH_URL`
+4. **Redeploy on Vercel** to pick up all fixes
+5. **Wire up auth guard** on contact forms (require sign-in before quote/career submission)
+
+## Notes
+
+- Domain (`newcanadiandrywall.ca`) currently points to Squarespace "Coming Soon" page, not Vercel
+- Resend API key works; emails sending successfully with verified `.ca` domain
+- Vercel function region is `us-east-1` (same as Neon DB)
