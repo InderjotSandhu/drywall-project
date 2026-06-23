@@ -33,10 +33,14 @@ export async function POST(request: Request) {
       },
     });
 
-    Promise.allSettled([
-      sendQuoteConfirmation({ name, email, projectType }),
-      submission.status === 'new' ? sendAdminQuoteNotification({ name, email, phone, projectType, budget, message }) : Promise.resolve(),
-    ]);
+    try {
+      await Promise.allSettled([
+        sendQuoteConfirmation({ name, email, projectType }),
+        submission.status === 'new' ? sendAdminQuoteNotification({ name, email, phone, projectType, budget, message }) : Promise.resolve(),
+      ]);
+    } catch {
+      // Email failure should not block the submission
+    }
 
     return NextResponse.json(
       { message: 'Quote request submitted successfully', id: submission.id },

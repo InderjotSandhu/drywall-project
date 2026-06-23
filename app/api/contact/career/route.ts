@@ -34,10 +34,14 @@ export async function POST(request: Request) {
       },
     });
 
-    Promise.allSettled([
-      sendCareerConfirmation({ name, email, role }),
-      submission.status === 'new' ? sendAdminCareerNotification({ name, email, phone, role, experience, availability, message }) : Promise.resolve(),
-    ]);
+    try {
+      await Promise.allSettled([
+        sendCareerConfirmation({ name, email, role }),
+        submission.status === 'new' ? sendAdminCareerNotification({ name, email, phone, role, experience, availability, message }) : Promise.resolve(),
+      ]);
+    } catch {
+      // Email failure should not block the submission
+    }
 
     return NextResponse.json(
       { message: 'Application submitted successfully', id: submission.id },
