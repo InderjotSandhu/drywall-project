@@ -55,6 +55,8 @@
 | E | Fix native form POST to /admin/login on logout | `f755443` | 2026-06-23 |
 | F | Refactor logout to use fetch instead of form submit | `fa43145` | 2026-06-23 |
 | G | Fix unawaited email promises (Resend mails not sending) | — | 2026-06-23 |
+| H | Fix admin email fallback from .com to .ca | — | 2026-06-23 |
+| I | Fix Services dropdown position on mobile (flat grid, no row grouping) | — | 2026-06-23 |
 
 ---
 

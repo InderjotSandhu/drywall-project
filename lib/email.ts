@@ -3,8 +3,8 @@ import { Resend } from 'resend';
 const resendApiKey = process.env.RESEND_API_KEY;
 const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
-const fromEmail = process.env.FROM_EMAIL || 'noreply@newcanadiandrywall.com';
-const adminEmail = process.env.ADMIN_EMAIL || 'info@newcanadiandrywall.com';
+const fromEmail = process.env.FROM_EMAIL || 'noreply@newcanadiandrywall.ca';
+const adminEmail = process.env.ADMIN_EMAIL || 'info@newcanadiandrywall.ca';
 
 function isConfigured(): boolean {
   return !!resend;

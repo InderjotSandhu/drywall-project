@@ -197,17 +197,6 @@ export default function Services() {
   const toggle = (id: string) =>
     setActiveId(prev => (prev === id ? null : id));
 
-  const COLS = 3;
-  const activeIndex = services.findIndex(s => s.id === activeId);
-
-  const rows: number[][] = [];
-  for (let i = 0; i < services.length; i += COLS) {
-    rows.push(services.slice(i, i + COLS).map((_, j) => i + j));
-  }
-  const activeRowIndex = activeIndex === -1
-    ? -1
-    : rows.findIndex(row => row.includes(activeIndex));
-
   return (
     <section className={styles.services} id="services">
       <div className={styles.inner}>
@@ -240,25 +229,17 @@ export default function Services() {
         {/* ── Cards grid with inline panel ── */}
         {!loading && services.length > 0 && (
           <div className={styles.grid}>
-            {rows.map((row, rowIdx) => (
-              <React.Fragment key={rowIdx}>
-                {row.map(cardIdx => {
-                  const svc = services[cardIdx];
-                  if (!svc) return null;
-                  return (
-                    <ServiceCard
-                      key={svc.id}
-                      service={svc}
-                      index={cardIdx}
-                      isActive={activeId === svc.id}
-                      onClick={() => toggle(svc.id)}
-                    />
-                  );
-                })}
-                {activeId && rowIdx === activeRowIndex && (
+            {services.map((svc, i) => (
+              <React.Fragment key={svc.id}>
+                <ServiceCard
+                  service={svc}
+                  index={i}
+                  isActive={activeId === svc.id}
+                  onClick={() => toggle(svc.id)}
+                />
+                {activeId === svc.id && (
                   <DetailPanel
-                    key={`panel-${activeId}`}
-                    service={services[activeIndex]}
+                    service={svc}
                   />
                 )}
               </React.Fragment>
