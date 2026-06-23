@@ -15,6 +15,12 @@ const links = [
 export default function AdminNav() {
   const pathname = usePathname();
 
+  async function handleLogout(e: React.FormEvent) {
+    e.preventDefault();
+    await fetch('/api/auth/logout', { method: 'POST' });
+    window.location.href = '/admin/login';
+  }
+
   function isActive(href: string) {
     if (href === '/admin') return pathname === '/admin';
     return pathname.startsWith(href);
@@ -38,7 +44,7 @@ export default function AdminNav() {
       }}>
         Change Password
       </a>
-      <form action="/api/auth/logout" method="POST" style={{ marginLeft: 12 }}>
+      <form onSubmit={handleLogout} style={{ marginLeft: 12 }}>
         <button type="submit" style={{ background: 'none', border: '1px solid rgba(210,180,140,0.3)', color: '#f0e6d3', padding: '6px 16px', borderRadius: 4, cursor: 'pointer' }}>
           Logout
         </button>
