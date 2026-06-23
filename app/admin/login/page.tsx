@@ -12,7 +12,11 @@ export default function AdminLogin() {
 
   useEffect(() => {
     fetch('/api/admin/submissions?type=quote')
-      .then(res => { if (res.ok) router.replace('/admin'); })
+      .then(res => {
+        if (res.ok) router.replace('/admin');
+        else if (res.status === 401) return;
+      })
+      .catch(() => {})
       .finally(() => setChecking(false));
   }, [router]);
 
