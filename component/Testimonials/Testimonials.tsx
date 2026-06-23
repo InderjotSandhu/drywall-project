@@ -35,10 +35,14 @@ function TestimonialCard({ item }: { item: Testimonial }) {
 
 function MarqueeRow({ items }: { items: Testimonial[] }) {
   const doubled = [...items, ...items];
+  const [paused, setPaused] = useState(false);
 
   return (
-    <div className={styles.marqueeOuter}>
-      <div className={styles.marqueeTrack}>
+    <div className={styles.marqueeOuter}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      <div className={`${styles.marqueeTrack} ${paused ? styles.marqueePaused : ''}`}>
         {doubled.map((item, i) => (
           <TestimonialCard key={`${item.id}-${i}`} item={item} />
         ))}

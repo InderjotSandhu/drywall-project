@@ -57,6 +57,7 @@
 | G | Fix unawaited email promises (Resend mails not sending) | — | 2026-06-23 |
 | H | Fix admin email fallback from .com to .ca | — | 2026-06-23 |
 | I | Fix Services dropdown position on mobile (flat grid, no row grouping) | — | 2026-06-23 |
+| J | Add pause-on-hover for Testimonials marquee | — | 2026-06-23 |
 
 ---
 
