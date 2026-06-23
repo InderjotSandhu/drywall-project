@@ -51,7 +51,7 @@ export default function AdminLogin() {
   return (
     <div style={{ maxWidth: 400, margin: '100px auto', padding: 24 }}>
       <h1>Admin Login</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} action="javascript:void(0)">
         <div style={{ marginBottom: 16 }}>
           <label style={{ display: 'block', marginBottom: 6 }}>Password</label>
           <input
