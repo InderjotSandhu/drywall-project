@@ -5,9 +5,10 @@ import styles from './Navbar.module.css';
 
 const NAV_LINKS = [
   { label: 'Services',     href: '#services'     },
-  { label: 'Projects',     href: '#projects'     },
   { label: 'About',        href: '#about'        },
+  { label: 'Projects',     href: '#projects'     },
   { label: 'Testimonials', href: '#testimonials' },
+  { label: 'Collaborations', href: '#collaborations' },
   { label: 'Contact',      href: '#contact'      },
 ];
 
