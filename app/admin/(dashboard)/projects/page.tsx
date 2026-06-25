@@ -18,7 +18,7 @@ export default function AdminProjects() {
   useEffect(() => {
     fetch('/api/admin/projects')
       .then(res => res.json())
-      .then(data => { setProjects(data); setLoading(false); })
+      .then(d => { setProjects(d.data); setLoading(false); })
       .catch(() => setLoading(false));
   }, []);
 

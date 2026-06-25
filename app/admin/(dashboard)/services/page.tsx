@@ -16,7 +16,7 @@ export default function AdminServices() {
   useEffect(() => {
     fetch('/api/admin/services')
       .then(r => r.json())
-      .then(d => { setServices(d); setLoading(false); })
+      .then(d => { setServices(d.data); setLoading(false); })
       .catch(() => setLoading(false));
   }, []);
 

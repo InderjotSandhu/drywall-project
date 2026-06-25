@@ -16,7 +16,8 @@ export default function EditCollaboration() {
   useEffect(() => {
     fetch(`/api/admin/collaborations/${params.id}`)
       .then(r => r.json())
-      .then(d => {
+      .then(r => {
+        const d = r.data;
         setForm({ name: d.name, logo: d.logo, description: d.description || '', order: d.order, isActive: d.isActive });
         setLoading(false);
       })

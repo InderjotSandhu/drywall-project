@@ -14,8 +14,9 @@ export default function EditTestimonial() {
   useEffect(() => {
     fetch(`/api/admin/testimonials/${params.id}`)
       .then(res => res.json())
-      .then(data => {
-        setForm({ name: data.name, quote: data.quote, order: data.order ?? 0, isActive: data.isActive !== false });
+      .then(r => {
+        const d = r.data;
+        setForm({ name: d.name, quote: d.quote, order: d.order ?? 0, isActive: d.isActive !== false });
         setLoading(false);
       })
       .catch(() => setLoading(false));

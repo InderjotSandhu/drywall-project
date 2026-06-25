@@ -19,12 +19,13 @@ export default function EditProject() {
     fetch(`/api/admin/projects/${params.id}`)
       .then(res => res.json())
       .then(data => {
+        const d = data.data;
         setForm({
-          title: data.title, category: data.category, description: data.description,
-          location: data.location || '', image: data.image, imageAlt: data.imageAlt || '',
-          order: data.order ?? 0, isActive: data.isActive !== false,
+          title: d.title, category: d.category, description: d.description,
+          location: d.location || '', image: d.image, imageAlt: d.imageAlt || '',
+          order: d.order ?? 0, isActive: d.isActive !== false,
         });
-        setStats(data.stats || []);
+        setStats(d.stats || []);
         setLoading(false);
       })
       .catch(() => setLoading(false));

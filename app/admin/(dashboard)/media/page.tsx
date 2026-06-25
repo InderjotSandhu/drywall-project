@@ -31,8 +31,8 @@ export default function AdminMedia() {
       fetch('/api/admin/media').then(r => r.json()),
       fetch('/api/admin/projects').then(r => r.json()),
     ]).then(([media, projs]) => {
-      setFiles(media);
-      setProjects(projs.map((p: { id: number; title: string }) => ({ id: p.id, title: p.title })));
+      setFiles(media.data);
+      setProjects(projs.data.map((p: { id: number; title: string }) => ({ id: p.id, title: p.title })));
       setLoading(false);
     }).catch(() => setLoading(false));
   };
