@@ -3,28 +3,6 @@ import type { NextRequest } from 'next/server';
 
 const SESSION_KEY = 'admin_token';
 const SESSION_DURATION_MS = 24 * 60 * 60 * 1000;
-const SELF = `'self'`;
-
-function generateNonce(): string {
-  const bytes = new Uint8Array(16);
-  crypto.getRandomValues(bytes);
-  return btoa(String.fromCharCode(...bytes));
-}
-
-function buildCsp(nonce: string): string {
-  const cspNonce = `'nonce-${nonce}'`;
-  return [
-    `default-src ${SELF}`,
-    `script-src ${SELF} ${cspNonce}`,
-    `style-src ${SELF} 'unsafe-inline' https://fonts.googleapis.com`,
-    `img-src ${SELF} data: https: https://public.blob.vercel-storage.com`,
-    `font-src ${SELF} https://fonts.gstatic.com`,
-    `connect-src ${SELF} https://vercel.live ws: wss:`,
-    `base-uri ${SELF}`,
-    `object-src 'none'`,
-    `frame-ancestors 'none'`,
-  ].join('; ');
-}
 
 async function hmacSha256(secret: string, data: string): Promise<string> {
   const enc = new TextEncoder();
@@ -68,18 +46,6 @@ async function isAuthenticated(request: NextRequest): Promise<boolean> {
 }
 
 export async function middleware(request: NextRequest) {
-  const nonce = generateNonce();
-  const requestHeaders = new Headers(request.headers);
-  requestHeaders.set('x-nonce', nonce);
-
-  const response = NextResponse.next({ request: { headers: requestHeaders } });
-  response.headers.set('x-nonce', nonce);
-  response.headers.set('Content-Security-Policy', buildCsp(nonce));
-  response.headers.set('X-Frame-Options', 'DENY');
-  response.headers.set('X-Content-Type-Options', 'nosniff');
-  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
-  response.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
-
   const { pathname } = request.nextUrl;
 
   if (pathname.startsWith('/api/admin') || (pathname.startsWith('/admin/') && !pathname.startsWith('/admin/login'))) {
@@ -107,10 +73,8 @@ export async function middleware(request: NextRequest) {
       }
     }
   }
-
-  return response;
 }
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)'],
+  matcher: ['/api/admin/:path*', '/admin/:path*'],
 };
