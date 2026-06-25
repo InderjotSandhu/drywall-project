@@ -5,6 +5,8 @@ import { logger } from '@/lib/logger';
 
 export const revalidate = 120;
 
+const cacheHeaders = { 'Cache-Control': 'public, s-maxage=120, stale-while-revalidate=300' };
+
 export async function GET() {
   try {
     const services = await withDbRetry(() => prisma.service.findMany({
@@ -29,7 +31,7 @@ export async function GET() {
       features: s.features.map((f) => ({ title: f.title, desc: f.description })),
     }));
 
-    return NextResponse.json({ success: true, data: formatted });
+    return NextResponse.json({ success: true, data: formatted }, { headers: cacheHeaders });
   } catch (error) {
     logger.error('Error fetching services', error as Error);
     return handleApiError(error);

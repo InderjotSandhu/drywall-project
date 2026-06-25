@@ -5,6 +5,8 @@ import { logger } from '@/lib/logger';
 
 export const revalidate = 300;
 
+const cacheHeaders = { 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600' };
+
 export async function GET() {
   try {
     const projectCount = await prisma.project.count({ where: { isActive: true } });
@@ -16,7 +18,7 @@ export async function GET() {
       { count: 12, suffix: '',  label: 'Trade Awards Won' },
     ];
 
-    return NextResponse.json({ success: true, data: stats });
+    return NextResponse.json({ success: true, data: stats }, { headers: cacheHeaders });
   } catch (error) {
     logger.error('Error fetching stats', error as Error);
     return handleApiError(error);

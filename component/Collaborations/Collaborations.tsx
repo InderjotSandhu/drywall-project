@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
+import Image from 'next/image';
 import styles from './Collaborations.module.css';
 
 interface Partner {
@@ -77,10 +78,12 @@ export default function Collaborations() {
 
                 {/* Logo */}
                 <div className={styles.logoWrap}>
-                  <img
+                  <Image
                     src={partner.logo}
                     alt={`${partner.name} logo`}
+                    fill
                     className={styles.logo}
+                    sizes="(max-width: 767px) 100vw, (max-width: 1023px) 33vw, 280px"
                   />
                 </div>
 

@@ -19,13 +19,6 @@ function getCarouselParams(total: number) {
   return { translateZ, perspective, sliderW: BASE_SLIDER_W, sliderH: BASE_SLIDER_H };
 }
 
-const STATS = [
-  { count: 15,  suffix: '+', label: 'Years Experience'   },
-  { count: 500, suffix: '+', label: 'Projects Completed' },
-  { count: 98,  suffix: '%', label: 'Client Satisfaction'},
-  { count: 12,  suffix: '',  label: 'Trade Awards Won'   },
-];
-
 function mod(n: number, m: number) { return ((n % m) + m) % m; }
 
 function angularDelta(position: number, total: number, rotation: number): number {
@@ -207,7 +200,6 @@ export default function ProjectCarousel() {
   const [cardStates, setCardStates] = useState<
     { front: boolean; visible: boolean; zIndex: number }[]
   >([]);
-  const [displayNums,  setDisplayNums]  = useState(STATS.map(() => 0));
   const [modalProject, setModalProject] = useState<Project | null>(null);
   const [modalSource,  setModalSource]  = useState<'carousel' | 'grid'>('carousel');
   const [showAllModal, setShowAllModal] = useState(false);
@@ -215,10 +207,8 @@ export default function ProjectCarousel() {
   const [isGrabbing,   setIsGrabbing]   = useState(false);
 
   const sliderRef   = useRef<HTMLDivElement>(null);
-  const stripRef    = useRef<HTMLDivElement>(null);
   const rotationRef = useRef(0);
   const dragRef     = useRef({ active: false, startX: 0, startRot: 0 });
-  const countedRef  = useRef(false);
 
   useEffect(() => {
     fetch('/api/projects')
@@ -259,29 +249,6 @@ export default function ProjectCarousel() {
     applyRotation(Math.round(rotationRef.current / STEP) * STEP - STEP), [applyRotation, STEP]);
   const rotatePrev = useCallback(() =>
     applyRotation(Math.round(rotationRef.current / STEP) * STEP + STEP), [applyRotation, STEP]);
-
-  /* ── Animated counters ── */
-  useEffect(() => {
-    const strip = stripRef.current;
-    if (!strip || loading) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting || countedRef.current) return;
-      countedRef.current = true;
-      STATS.forEach(({ count }, idx) => {
-        const steps = 50; let step = 0;
-        const timer = setInterval(() => {
-          step++;
-          const eased = 1 - Math.pow(1 - step / steps, 3);
-          setDisplayNums(prev => {
-            const next = [...prev]; next[idx] = Math.round(eased * count); return next;
-          });
-          if (step >= steps) clearInterval(timer);
-        }, 1400 / steps);
-      });
-    }, { threshold: 0.4 });
-    observer.observe(strip);
-    return () => observer.disconnect();
-  }, [loading]);
 
   useEffect(() => { if (total > 0) applyRotation(0); }, [applyRotation, total]);
 
@@ -356,28 +323,6 @@ export default function ProjectCarousel() {
 
         <div className={styles.scene}>
           <div className={styles.carouselWrap}>
-
-            {/* Stat strip */}
-            <div ref={stripRef} className={styles.statStrip}>
-              {STATS.map(({ suffix, label }, idx) => (
-                <div key={label} className={styles.statCell}>
-                  <span className={styles.statNum}>
-                    {displayNums[idx]}<span className={styles.statSuffix}>{suffix}</span>
-                  </span>
-                  <span className={styles.statLbl}>{label}</span>
-                </div>
-              ))}
-              <div className={styles.statFooterRow}>
-                <div className={styles.avatarRow}>
-                  {['#c9973a','#b8843a','#d4a84b','#a0712e'].map((bg, i) => (
-                    <span key={i} className={styles.avatar} style={{ background: bg, zIndex: 4 - i }} />
-                  ))}
-                </div>
-                <p className={styles.footerText}>
-                  <strong>200+ happy clients</strong> across the GTA
-                </p>
-              </div>
-            </div>
 
             {/* 3D ring */}
             <div ref={sliderRef}

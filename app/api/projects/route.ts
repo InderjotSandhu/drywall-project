@@ -5,6 +5,8 @@ import { logger } from '@/lib/logger';
 
 export const revalidate = 60;
 
+const cacheHeaders = { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120' };
+
 export async function GET() {
   try {
     const projects = await withDbRetry(() => prisma.project.findMany({
@@ -37,7 +39,7 @@ export async function GET() {
       stats: p.stats.map((s) => ({ label: s.label, value: s.value })),
     }));
 
-    return NextResponse.json({ success: true, data: formatted });
+    return NextResponse.json({ success: true, data: formatted }, { headers: cacheHeaders });
   } catch (error) {
     logger.error('Error fetching projects', error as Error);
     return handleApiError(error);
