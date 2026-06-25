@@ -3,21 +3,25 @@ import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
 import { sendCareerConfirmation, sendAdminCareerNotification } from '@/lib/email';
 import { checkFormRateLimit } from '@/lib/rate-limit';
+import { checkBodySize } from '@/lib/body-limit';
 import { handleApiError } from '@/lib/errors';
 import { logger } from '@/lib/logger';
 
 const careerSchema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  email: z.string().email('Valid email is required'),
-  phone: z.string().optional().nullable(),
-  role: z.string().min(1, 'Role is required'),
-  experience: z.string().optional().nullable(),
-  availability: z.string().optional().nullable(),
-  message: z.string().min(1, 'Message is required'),
+  name: z.string().min(1, 'Name is required').max(200),
+  email: z.string().email('Valid email is required').max(254),
+  phone: z.string().max(30).optional().nullable(),
+  role: z.string().min(1, 'Role is required').max(200),
+  experience: z.string().max(100).optional().nullable(),
+  availability: z.string().max(100).optional().nullable(),
+  message: z.string().min(1, 'Message is required').max(5000),
 });
 
 export async function POST(request: Request) {
   try {
+    const bodyLimitError = await checkBodySize(request);
+    if (bodyLimitError) return bodyLimitError;
+
     const { allowed, resetInMs } = checkFormRateLimit(request);
     if (!allowed) {
       return NextResponse.json({

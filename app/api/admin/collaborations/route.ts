@@ -5,9 +5,9 @@ import { handleApiError } from '@/lib/errors';
 import { logger } from '@/lib/logger';
 
 const createCollaborationSchema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  logo: z.string().min(1, 'Logo URL is required'),
-  description: z.string().optional().nullable(),
+  name: z.string().min(1, 'Name is required').max(300),
+  logo: z.string().min(1, 'Logo URL is required').max(2000),
+  description: z.string().max(1000).optional().nullable(),
   order: z.number().int().optional().default(0),
   isActive: z.boolean().optional().default(true),
 });

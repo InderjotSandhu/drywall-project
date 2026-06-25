@@ -5,9 +5,9 @@ import { handleApiError } from '@/lib/errors';
 import { logger } from '@/lib/logger';
 
 const updateCollaborationSchema = z.object({
-  name: z.string().min(1).optional(),
-  logo: z.string().min(1).optional(),
-  description: z.string().optional().nullable(),
+  name: z.string().min(1).max(300).optional(),
+  logo: z.string().min(1).max(2000).optional(),
+  description: z.string().max(1000).optional().nullable(),
   order: z.number().int().optional(),
   isActive: z.boolean().optional(),
 });

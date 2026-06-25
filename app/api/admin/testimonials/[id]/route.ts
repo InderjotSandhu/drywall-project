@@ -5,8 +5,8 @@ import { handleApiError } from '@/lib/errors';
 import { logger } from '@/lib/logger';
 
 const updateTestimonialSchema = z.object({
-  name: z.string().min(1).optional(),
-  quote: z.string().min(1).optional(),
+  name: z.string().min(1).max(200).optional(),
+  quote: z.string().min(1).max(5000).optional(),
   order: z.number().int().optional(),
   isActive: z.boolean().optional(),
 });

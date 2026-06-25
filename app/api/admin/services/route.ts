@@ -5,16 +5,16 @@ import { handleApiError } from '@/lib/errors';
 import { logger } from '@/lib/logger';
 
 const createServiceSchema = z.object({
-  id: z.string().optional(),
-  title: z.string().min(1, 'Title is required'),
-  description: z.string().min(1, 'Description is required'),
-  detail: z.string().min(1, 'Detail is required'),
+  id: z.string().max(200).optional(),
+  title: z.string().min(1, 'Title is required').max(300),
+  description: z.string().min(1, 'Description is required').max(10000),
+  detail: z.string().min(1, 'Detail is required').max(10000),
   order: z.number().int().optional().default(0),
   isActive: z.boolean().optional().default(true),
-  tags: z.array(z.string()).optional(),
+  tags: z.array(z.string().max(200)).optional(),
   features: z.array(z.object({
-    title: z.string().min(1),
-    description: z.string().min(1),
+    title: z.string().min(1).max(300),
+    description: z.string().min(1).max(5000),
   })).optional(),
 });
 

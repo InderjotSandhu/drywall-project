@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { readdirSync, statSync, unlinkSync } from 'fs';
-import { join } from 'path';
+import { join, normalize, basename } from 'path';
 import { list, del } from '@vercel/blob';
 import { prisma } from '@/lib/prisma';
 import { isBlobConfigured } from '@/lib/media';
@@ -89,7 +89,8 @@ export async function DELETE(request: Request) {
         await del(name);
       }
     } else {
-      unlinkSync(join(uploadsDir, name));
+      const safeName = basename(normalize(name));
+      unlinkSync(join(uploadsDir, safeName));
     }
     return NextResponse.json({ success: true });
   } catch (error) {

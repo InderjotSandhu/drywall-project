@@ -5,17 +5,17 @@ import { handleApiError } from '@/lib/errors';
 import { logger } from '@/lib/logger';
 
 const projectStatSchema = z.object({
-  label: z.string().min(1),
-  value: z.string().min(1),
+  label: z.string().min(1).max(200),
+  value: z.string().min(1).max(200),
 });
 
 const createProjectSchema = z.object({
-  title: z.string().min(1, 'Title is required'),
-  category: z.string().min(1, 'Category is required'),
-  description: z.string().min(1, 'Description is required'),
-  location: z.string().optional().nullable(),
-  image: z.string().min(1, 'Image is required'),
-  imageAlt: z.string().optional().nullable(),
+  title: z.string().min(1, 'Title is required').max(300),
+  category: z.string().min(1, 'Category is required').max(200),
+  description: z.string().min(1, 'Description is required').max(10000),
+  location: z.string().max(300).optional().nullable(),
+  image: z.string().min(1, 'Image is required').max(2000),
+  imageAlt: z.string().max(500).optional().nullable(),
   order: z.number().int().optional().default(0),
   isActive: z.boolean().optional().default(true),
   stats: z.array(projectStatSchema).optional(),

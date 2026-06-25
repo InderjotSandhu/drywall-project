@@ -10,7 +10,13 @@ function isConfigured(): boolean {
   return !!resend;
 }
 
+function escapeHtml(str: string): string {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
 function quoteConfirmationHtml({ name, projectType }: { name: string; projectType: string }): string {
+  const safeName = escapeHtml(name);
+  const safeProjectType = escapeHtml(projectType);
   return `
 <!DOCTYPE html>
 <html>
@@ -21,9 +27,9 @@ function quoteConfirmationHtml({ name, projectType }: { name: string; projectTyp
       <h1 style="color:#c9973a;font-size:24px;margin:0;">New Canadian Drywall</h1>
     </td></tr>
     <tr><td style="background:#ffffff;border-radius:12px;padding:32px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
-      <h2 style="color:#1a1a1a;font-size:20px;margin:0 0 8px;">Thank you, ${name}!</h2>
+      <h2 style="color:#1a1a1a;font-size:20px;margin:0 0 8px;">Thank you, ${safeName}!</h2>
       <p style="color:#555;font-size:15px;line-height:1.6;margin:0 0 16px;">
-        We've received your quote request for <strong>${projectType}</strong> and will review it shortly.
+        We've received your quote request for <strong>${safeProjectType}</strong> and will review it shortly.
       </p>
       <p style="color:#555;font-size:15px;line-height:1.6;margin:0 0 16px;">
         A member of our team will get back to you within 1–2 business days to discuss your project in detail.
@@ -41,6 +47,8 @@ function quoteConfirmationHtml({ name, projectType }: { name: string; projectTyp
 }
 
 function careerConfirmationHtml({ name, role }: { name: string; role: string }): string {
+  const safeName = escapeHtml(name);
+  const safeRole = escapeHtml(role);
   return `
 <!DOCTYPE html>
 <html>
@@ -51,9 +59,9 @@ function careerConfirmationHtml({ name, role }: { name: string; role: string }):
       <h1 style="color:#c9973a;font-size:24px;margin:0;">New Canadian Drywall</h1>
     </td></tr>
     <tr><td style="background:#ffffff;border-radius:12px;padding:32px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
-      <h2 style="color:#1a1a1a;font-size:20px;margin:0 0 8px;">Application Received, ${name}!</h2>
+      <h2 style="color:#1a1a1a;font-size:20px;margin:0 0 8px;">Application Received, ${safeName}!</h2>
       <p style="color:#555;font-size:15px;line-height:1.6;margin:0 0 16px;">
-        Thank you for applying for the <strong>${role}</strong> position at New Canadian Drywall.
+        Thank you for applying for the <strong>${safeRole}</strong> position at New Canadian Drywall.
       </p>
       <p style="color:#555;font-size:15px;line-height:1.6;margin:0 0 16px;">
         We'll review your application and reach out if your experience aligns with our current needs.
@@ -73,12 +81,18 @@ function careerConfirmationHtml({ name, role }: { name: string; role: string }):
 function adminQuoteNotificationHtml({ name, email, phone, projectType, budget, message }: {
   name: string; email: string; phone?: string | null; projectType: string; budget?: string | null; message: string;
 }): string {
+  const safeName = escapeHtml(name);
+  const safeEmail = escapeHtml(email);
+  const safePhone = escapeHtml(phone || '—');
+  const safeProjectType = escapeHtml(projectType);
+  const safeBudget = escapeHtml(budget || '—');
+  const safeMessage = escapeHtml(message);
   const rows = [
-    { label: 'Name', value: name },
-    { label: 'Email', value: `<a href="mailto:${email}" style="color:#c9973a;">${email}</a>` },
-    { label: 'Phone', value: phone || '—' },
-    { label: 'Project Type', value: projectType },
-    { label: 'Budget', value: budget || '—' },
+    { label: 'Name', value: safeName },
+    { label: 'Email', value: `<a href="mailto:${safeEmail}" style="color:#c9973a;">${safeEmail}</a>` },
+    { label: 'Phone', value: safePhone },
+    { label: 'Project Type', value: safeProjectType },
+    { label: 'Budget', value: safeBudget },
   ];
   const rowHtml = rows.map((r, i) => `
     <tr${i < rows.length - 1 ? ` style="border-bottom:1px solid #eee;"` : ''}>
@@ -98,7 +112,7 @@ function adminQuoteNotificationHtml({ name, email, phone, projectType, budget, m
       <table style="width:100%;" cellpadding="0" cellspacing="0">${rowHtml}
         <tr><td colspan="2" style="padding:6px 0;"></td></tr>
         <tr><td colspan="2" style="padding:10px 0;color:#888;font-size:13px;">Message</td></tr>
-        <tr><td colspan="2" style="padding:8px 12px;color:#1a1a1a;font-size:14px;background:#f9f8f6;border-radius:6px;line-height:1.5;">${message}</td></tr>
+        <tr><td colspan="2" style="padding:8px 12px;color:#1a1a1a;font-size:14px;background:#f9f8f6;border-radius:6px;line-height:1.5;">${safeMessage}</td></tr>
       </table>
     </td></tr>
   </table>
@@ -109,13 +123,20 @@ function adminQuoteNotificationHtml({ name, email, phone, projectType, budget, m
 function adminCareerNotificationHtml({ name, email, phone, role, experience, availability, message }: {
   name: string; email: string; phone?: string | null; role: string; experience?: string | null; availability?: string | null; message: string;
 }): string {
+  const safeName = escapeHtml(name);
+  const safeEmail = escapeHtml(email);
+  const safePhone = escapeHtml(phone || '—');
+  const safeRole = escapeHtml(role);
+  const safeExperience = experience ? `${escapeHtml(experience)} Years` : '—';
+  const safeAvailability = escapeHtml(availability || '—');
+  const safeMessage = escapeHtml(message);
   const rows = [
-    { label: 'Name', value: name },
-    { label: 'Email', value: `<a href="mailto:${email}" style="color:#c9973a;">${email}</a>` },
-    { label: 'Phone', value: phone || '—' },
-    { label: 'Role', value: role },
-    { label: 'Experience', value: experience ? `${experience} Years` : '—' },
-    { label: 'Availability', value: availability || '—' },
+    { label: 'Name', value: safeName },
+    { label: 'Email', value: `<a href="mailto:${safeEmail}" style="color:#c9973a;">${safeEmail}</a>` },
+    { label: 'Phone', value: safePhone },
+    { label: 'Role', value: safeRole },
+    { label: 'Experience', value: safeExperience },
+    { label: 'Availability', value: safeAvailability },
   ];
   const rowHtml = rows.map((r, i) => `
     <tr${i < rows.length - 1 ? ` style="border-bottom:1px solid #eee;"` : ''}>
@@ -135,7 +156,7 @@ function adminCareerNotificationHtml({ name, email, phone, role, experience, ava
       <table style="width:100%;" cellpadding="0" cellspacing="0">${rowHtml}
         <tr><td colspan="2" style="padding:6px 0;"></td></tr>
         <tr><td colspan="2" style="padding:10px 0;color:#888;font-size:13px;">Message</td></tr>
-        <tr><td colspan="2" style="padding:8px 12px;color:#1a1a1a;font-size:14px;background:#f9f8f6;border-radius:6px;line-height:1.5;">${message}</td></tr>
+        <tr><td colspan="2" style="padding:8px 12px;color:#1a1a1a;font-size:14px;background:#f9f8f6;border-radius:6px;line-height:1.5;">${safeMessage}</td></tr>
       </table>
     </td></tr>
   </table>

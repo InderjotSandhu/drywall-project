@@ -2,11 +2,15 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { createSession, verifyPassword, hashPassword, safeCompare } from '@/lib/auth';
 import { getClientIp, checkLoginRateLimit } from '@/lib/rate-limit';
+import { checkBodySize } from '@/lib/body-limit';
 import { handleApiError } from '@/lib/errors';
 import { logger } from '@/lib/logger';
 
 export async function POST(request: Request) {
   try {
+    const bodyLimitError = await checkBodySize(request);
+    if (bodyLimitError) return bodyLimitError;
+
     const ip = getClientIp(request);
     const { allowed, resetInMs } = checkLoginRateLimit(ip);
     if (!allowed) {

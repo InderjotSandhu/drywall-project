@@ -5,16 +5,16 @@ import { handleApiError } from '@/lib/errors';
 import { logger } from '@/lib/logger';
 
 const updateServiceSchema = z.object({
-  title: z.string().min(1).optional(),
-  description: z.string().min(1).optional(),
-  detail: z.string().min(1).optional(),
+  title: z.string().min(1).max(300).optional(),
+  description: z.string().min(1).max(10000).optional(),
+  detail: z.string().min(1).max(10000).optional(),
   order: z.number().int().optional(),
   isActive: z.boolean().optional(),
-  id: z.string().optional(),
-  tags: z.array(z.string()).optional(),
+  id: z.string().max(200).optional(),
+  tags: z.array(z.string().max(200)).optional(),
   features: z.array(z.object({
-    title: z.string().min(1),
-    description: z.string().min(1),
+    title: z.string().min(1).max(300),
+    description: z.string().min(1).max(5000),
   })).optional(),
 });
 

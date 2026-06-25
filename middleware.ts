@@ -56,6 +56,22 @@ export async function middleware(request: NextRequest) {
       }
       return NextResponse.redirect(new URL('/admin/login', request.url));
     }
+
+    const method = request.method;
+    if (pathname.startsWith('/api/admin') && ['POST', 'PUT', 'PATCH', 'DELETE'].includes(method)) {
+      const origin = request.headers.get('origin');
+      const host = request.headers.get('host');
+      if (origin && host) {
+        try {
+          const originHost = new URL(origin).host;
+          if (originHost !== host) {
+            return NextResponse.json({ error: 'CSRF validation failed' }, { status: 403 });
+          }
+        } catch {
+          return NextResponse.json({ error: 'Invalid origin' }, { status: 400 });
+        }
+      }
+    }
   }
 }
 

@@ -1,16 +1,29 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
+import { checkFormRateLimit } from '@/lib/rate-limit';
+import { checkBodySize } from '@/lib/body-limit';
 import { handleApiError } from '@/lib/errors';
 import { logger } from '@/lib/logger';
 
 const testimonialSchema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  quote: z.string().min(10, 'Please write at least a few more words'),
+  name: z.string().min(1, 'Name is required').max(100),
+  quote: z.string().min(10, 'Please write at least a few more words').max(2000),
 });
 
 export async function POST(request: Request) {
   try {
+    const bodyLimitError = await checkBodySize(request);
+    if (bodyLimitError) return bodyLimitError;
+
+    const { allowed, resetInMs } = checkFormRateLimit(request);
+    if (!allowed) {
+      return NextResponse.json({
+        success: false,
+        error: `Too many requests. Try again in ${Math.ceil(resetInMs / 1000 / 60)} minutes.`,
+      }, { status: 429 });
+    }
+
     const body = await request.json();
     const data = testimonialSchema.parse(body);
 

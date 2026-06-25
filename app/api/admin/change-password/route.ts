@@ -6,8 +6,8 @@ import { handleApiError } from '@/lib/errors';
 import { logger } from '@/lib/logger';
 
 const changePasswordSchema = z.object({
-  currentPassword: z.string().min(1, 'Current password is required'),
-  newPassword: z.string().min(6, 'New password must be at least 6 characters'),
+  currentPassword: z.string().min(1, 'Current password is required').max(256),
+  newPassword: z.string().min(6, 'New password must be at least 6 characters').max(256),
 });
 
 export async function POST(request: Request) {

@@ -1,10 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { uploadFile, isAllowedFileType } from '@/lib/media';
+import { checkBodySize } from '@/lib/body-limit';
 import { handleApiError } from '@/lib/errors';
 import { logger } from '@/lib/logger';
 
 export async function POST(request: NextRequest) {
   try {
+    const bodyLimitError = await checkBodySize(request);
+    if (bodyLimitError) return bodyLimitError;
+
     const formData = await request.formData();
     const file = formData.get('file') as File | null;
 
