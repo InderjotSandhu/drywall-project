@@ -1,45 +1,69 @@
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
-import { requireAdminAPI } from '@/lib/auth';
+import { handleApiError } from '@/lib/errors';
+import { logger } from '@/lib/logger';
+
+const createServiceSchema = z.object({
+  id: z.string().optional(),
+  title: z.string().min(1, 'Title is required'),
+  description: z.string().min(1, 'Description is required'),
+  detail: z.string().min(1, 'Detail is required'),
+  order: z.number().int().optional().default(0),
+  isActive: z.boolean().optional().default(true),
+  tags: z.array(z.string()).optional(),
+  features: z.array(z.object({
+    title: z.string().min(1),
+    description: z.string().min(1),
+  })).optional(),
+});
 
 export async function GET() {
-  const auth = await requireAdminAPI();
-  if (auth) return auth;
-
-  const services = await prisma.service.findMany({
-    orderBy: { order: 'asc' },
-    include: { tags: { orderBy: { order: 'asc' } }, features: { orderBy: { order: 'asc' } } },
-  });
-  return NextResponse.json(services);
+  try {
+    const services = await prisma.service.findMany({
+      orderBy: { order: 'asc' },
+      include: { tags: { orderBy: { order: 'asc' } }, features: { orderBy: { order: 'asc' } } },
+    });
+    return NextResponse.json({ success: true, data: services });
+  } catch (error) {
+    logger.error('Error fetching services', error as Error);
+    return handleApiError(error);
+  }
 }
 
 export async function POST(request: Request) {
-  const auth = await requireAdminAPI();
-  if (auth) return auth;
-
   try {
     const body = await request.json();
-    const { id, title, description, detail, order, isActive, tags, features } = body;
+    const data = createServiceSchema.parse(body);
 
     const service = await prisma.service.create({
       data: {
-        id: id || title.toLowerCase().replace(/\s+/g, '-'),
-        title, description, detail,
-        order: typeof order === 'number' ? order : 0,
-        isActive: isActive !== false,
-        tags: tags?.length
-          ? { create: tags.map((t: string, i: number) => ({ label: t, order: i })) }
+        id: data.id || data.title.toLowerCase().replace(/\s+/g, '-'),
+        title: data.title,
+        description: data.description,
+        detail: data.detail,
+        order: data.order,
+        isActive: data.isActive,
+        tags: data.tags?.length
+          ? { create: data.tags.map((t, i) => ({ label: t, order: i })) }
           : undefined,
-        features: features?.length
-          ? { create: features.map((f: { title: string; description: string }, i: number) => ({ ...f, order: i })) }
+        features: data.features?.length
+          ? { create: data.features.map((f, i) => ({ title: f.title, description: f.description, order: i })) }
           : undefined,
       },
       include: { tags: true, features: true },
     });
 
-    return NextResponse.json(service, { status: 201 });
+    return NextResponse.json({ success: true, data: service }, { status: 201 });
   } catch (error) {
-    console.error('Error creating service:', error);
-    return NextResponse.json({ error: 'Failed to create service' }, { status: 500 });
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({
+        success: false,
+        error: 'Validation failed',
+        details: error.issues.map(e => ({ field: e.path.join('.'), message: e.message })),
+      }, { status: 400 });
+    }
+    logger.error('Error creating service', error as Error);
+    return handleApiError(error);
   }
 }

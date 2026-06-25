@@ -1,32 +1,43 @@
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
-import { requireAdminAPI } from '@/lib/auth';
+import { handleApiError } from '@/lib/errors';
+import { logger } from '@/lib/logger';
+
+const createTestimonialSchema = z.object({
+  name: z.string().min(1, 'Name is required'),
+  quote: z.string().min(1, 'Quote is required'),
+  order: z.number().int().optional().default(0),
+  isActive: z.boolean().optional().default(true),
+});
 
 export async function GET() {
-  const auth = await requireAdminAPI();
-  if (auth) return auth;
-
-  const testimonials = await prisma.testimonial.findMany({ orderBy: { order: 'asc' } });
-  return NextResponse.json(testimonials);
+  try {
+    const testimonials = await prisma.testimonial.findMany({ orderBy: { order: 'asc' } });
+    return NextResponse.json({ success: true, data: testimonials });
+  } catch (error) {
+    logger.error('Error fetching testimonials', error as Error);
+    return handleApiError(error);
+  }
 }
 
 export async function POST(request: Request) {
-  const auth = await requireAdminAPI();
-  if (auth) return auth;
-
   try {
     const body = await request.json();
-    const testimonial = await prisma.testimonial.create({
-      data: {
-        name: body.name,
-        quote: body.quote,
-        order: typeof body.order === 'number' ? body.order : 0,
-        isActive: body.isActive !== false,
-      },
-    });
-    return NextResponse.json(testimonial, { status: 201 });
+    const data = createTestimonialSchema.parse(body);
+
+    const testimonial = await prisma.testimonial.create({ data });
+
+    return NextResponse.json({ success: true, data: testimonial }, { status: 201 });
   } catch (error) {
-    console.error('Error creating testimonial:', error);
-    return NextResponse.json({ error: 'Failed to create testimonial' }, { status: 500 });
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({
+        success: false,
+        error: 'Validation failed',
+        details: error.issues.map(e => ({ field: e.path.join('.'), message: e.message })),
+      }, { status: 400 });
+    }
+    logger.error('Error creating testimonial', error as Error);
+    return handleApiError(error);
   }
 }

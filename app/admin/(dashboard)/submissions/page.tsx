@@ -60,7 +60,7 @@ export default function AdminSubmissions() {
     if (statusFilter) params.set('status', statusFilter);
     try {
       const res = await fetch(`/api/admin/submissions?${params}`);
-      if (res.ok) { const json = await res.json(); setItems(json.data); }
+      if (res.ok) { const json = await res.json(); setItems(json?.data ?? []); }
     } catch { /* ignore */ }
     setLoading(false);
   }, [type, search, statusFilter]);

@@ -20,10 +20,12 @@ export default function EditService() {
     fetch(`/api/admin/services/${params.id}`)
       .then(r => r.json())
       .then(r => {
-        const d = r.data;
-        setForm({ id: d.id, title: d.title, description: d.description, detail: d.detail, order: d.order, isActive: d.isActive });
-        setTags((d.tags || []).map((t: { label: string }) => t.label));
-        setFeatures((d.features || []).map((f: { title: string; description: string }) => ({ title: f.title, description: f.description })));
+        const d = r?.data;
+        if (d) {
+          setForm({ id: d.id, title: d.title, description: d.description, detail: d.detail, order: d.order, isActive: d.isActive });
+          setTags((d.tags || []).map((t: { label: string }) => t.label));
+          setFeatures((d.features || []).map((f: { title: string; description: string }) => ({ title: f.title, description: f.description })));
+        }
         setLoading(false);
       })
       .catch(() => setLoading(false));

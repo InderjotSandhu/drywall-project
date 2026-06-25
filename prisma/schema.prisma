@@ -28,6 +28,9 @@ model Project {
   images      ProjectImage[]
   videos      ProjectVideo[]
   stats       ProjectStat[]
+
+  @@index([isActive, order])
+  @@index([category])
 }
 
 model ProjectImage {
@@ -36,6 +39,8 @@ model ProjectImage {
   order     Int     @default(0)
   projectId Int
   project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
 }
 
 model ProjectVideo {
@@ -44,6 +49,8 @@ model ProjectVideo {
   order     Int     @default(0)
   projectId Int
   project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
 }
 
 model ProjectStat {
@@ -53,6 +60,8 @@ model ProjectStat {
   order     Int     @default(0)
   projectId Int
   project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
 }
 
 // ──────────────────────────────────────────────
@@ -65,6 +74,8 @@ model Testimonial {
   order     Int      @default(0)
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
+
+  @@index([isActive, order])
 }
 
 // ──────────────────────────────────────────────
@@ -80,6 +91,8 @@ model Service {
 
   tags        ServiceTag[]
   features    ServiceFeature[]
+
+  @@index([isActive, order])
 }
 
 model ServiceTag {
@@ -88,6 +101,8 @@ model ServiceTag {
   order     Int     @default(0)
   serviceId String
   service   Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@index([serviceId])
 }
 
 model ServiceFeature {
@@ -97,6 +112,8 @@ model ServiceFeature {
   order       Int     @default(0)
   serviceId   String
   service     Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@index([serviceId])
 }
 
 // ──────────────────────────────────────────────
@@ -110,6 +127,8 @@ model Collaboration {
   order       Int      @default(0)
   isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())
+
+  @@index([isActive, order])
 }
 
 // ──────────────────────────────────────────────
@@ -125,6 +144,9 @@ model QuoteSubmission {
   message     String
   status      String   @default("new")
   createdAt   DateTime @default(now())
+
+  @@index([status, createdAt])
+  @@index([status])
 }
 
 // ──────────────────────────────────────────────
@@ -142,6 +164,9 @@ model CareerSubmission {
   resumeUrl    String?
   status       String   @default("new")
   createdAt    DateTime @default(now())
+
+  @@index([status, createdAt])
+  @@index([status])
 }
 
 // ──────────────────────────────────────────────
@@ -152,5 +177,3 @@ model Admin {
   passwordHash String
   updatedAt    DateTime @updatedAt
 }
-
-

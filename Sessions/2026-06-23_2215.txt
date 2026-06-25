@@ -1,0 +1,83 @@
+Session Date : 2026-06-23 22:15
+Developer    : Inderjot Sandhu
+Description  : Admin logout redirect fix, Services mobile dropdown, Testimonials marquee pause, email fixes, performance audit
+
+## Problem Statements
+
+1. Admin logout redirects to localhost:3000 instead of /admin/login
+2. Login page throws 401 error spam in console after logout
+3. Services section dropdown not working on mobile (wrong position)
+4. Mobile menu positioning inconsistent on different devices
+5. Resend API not sending emails (stopped working)
+6. Admin email in notification emails is incorrect
+7. Testimonials marquee has no pause-on-hover
+8. Performance concerns after multiple changes
+
+## Changes Made
+
+### 1. Admin Logout Redirect Fix
+
+- **`app/api/auth/logout/route.ts`** — Changed redirect from `process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'` to `request.url` so it always redirects to the same origin
+- **`component/AdminNav.tsx`** — Refactored from native `<form action="/api/auth/logout" method="POST">` to `fetch` POST + `window.location.href` redirect to prevent native form navigation issues
+
+### 2. Login Page Error Handling
+
+- **`app/admin/login/page.tsx`** — Added explicit `401` check in useEffect fetch to prevent console error spam; added `.catch(() => {})` for network errors; added `action="javascript:void(0)"` to form to prevent native POST to page route
+
+### 3. Mobile Menu Positioning
+
+- **`component/Navbar/Navbar.module.css`** — Changed `.mobileMenu` from `position: absolute` with `top: 100%` to `position: fixed` with explicit `top: 68px` (desktop) / `top: 56px` (mobile) for consistent positioning across devices with browser chrome
+
+### 4. Services Dropdown on Mobile
+
+- **`component/Services/Services.tsx`** — Removed hardcoded `COLS = 3` row-grouping logic. Changed to flat grid rendering where the detail panel is placed directly after the clicked card in the DOM. CSS grid auto-places correctly regardless of screen width
+- **`component/Services/Services.module.css`** — Added `touch-action: manipulation` for better touch responsiveness; removed `overflow: hidden` from grid container which was clipping the expanded panel on mobile
+
+### 5. Resend Email Fix (Unawaited Promises)
+
+- **`app/api/contact/quote/route.ts`** — Wrapped `Promise.allSettled([...])` in `await` so emails complete before serverless function terminates
+- **`app/api/contact/career/route.ts`** — Same fix applied
+
+### 6. Admin Email Fallback Fix
+
+- **`lib/email.ts`** — Changed fallback emails from `.com` to `.ca`:
+  - `noreply@newcanadiandrywall.com` → `noreply@newcanadiandrywall.ca`
+  - `info@newcanadiandrywall.com` → `info@newcanadiandrywall.ca`
+
+### 7. Testimonials Marquee Pause-on-Hover
+
+- **`component/Testimonials/Testimonials.tsx`** — Added `paused` state to `MarqueeRow` component with `onMouseEnter`/`onMouseLeave` handlers to toggle `.marqueePaused` class
+- CSS class `.marqueePaused` with `animation-play-state: paused` was already defined
+
+### 8. Performance Audit
+
+- **`docs/performance-audit-log.md`** — Created comprehensive audit log with 17 issues categorized by impact (High/Medium/Low), 9 completed items, and 3-sprint implementation plan
+
+## Build Status
+
+All commits built successfully.
+
+## Git Commits
+
+```
+b691391 Fix logout redirect to use request URL instead of env variable
+a9b95f5 Fix login page 401 error spam after logout
+2bd9501 Fix Services panel on mobile: add touch-action and remove overflow:hidden
+4dff51d Fix mobile menu positioning - use fixed position instead of absolute
+f755443 Prevent form native submit to /admin/login
+fa43145 Fix logout to use fetch instead of form submit
+2e9fefc Fix unawaited email promises causing Resend mails not to send in serverless
+0b4cb85 Fix admin email fallback (.com->.ca) and Services dropdown position on mobile
+9aa9414 Add pause-on-hover for Testimonials marquee
+```
+
+## Pending Actions
+
+1. **Update Vercel env var** — Change `ADMIN_EMAIL` from `inderjotsandhu099@gmail.com` → `info@newcanadiandrywall.ca` in Vercel Dashboard → Settings → Environment Variables
+2. **Consider implementing performance sprint items** from `docs/performance-audit-log.md` (ISR caching, next/image, RSC conversion)
+
+## Notes
+
+- The admin email `inderjotsandhu099@gmail.com` is NOT hardcoded anywhere in the codebase; it's set in Vercel's environment variables
+- Performance audit log created at `docs/performance-audit-log.md` with prioritized implementation plan
+- All logout flow changes tested: form submit prevention, redirect, client-side navigation

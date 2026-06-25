@@ -2,9 +2,10 @@ import { NextResponse } from 'next/server';
 import { readdirSync, statSync, unlinkSync } from 'fs';
 import { join } from 'path';
 import { list, del } from '@vercel/blob';
-import { requireAdminAPI } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { isBlobConfigured } from '@/lib/media';
+import { handleApiError } from '@/lib/errors';
+import { logger } from '@/lib/logger';
 
 const uploadsDir = join(process.cwd(), 'public', 'uploads');
 
@@ -38,9 +39,6 @@ async function scanBlobFiles(): Promise<{ name: string; url: string; size: numbe
 }
 
 export async function GET() {
-  const auth = await requireAdminAPI();
-  if (auth) return auth;
-
   try {
     const [projects, projectImages, projectVideos] = await Promise.all([
       prisma.project.findMany({ select: { id: true, title: true, image: true } }),
@@ -72,19 +70,18 @@ export async function GET() {
       return { ...f, usedIn };
     }).sort((a, b) => b.modified.localeCompare(a.modified));
 
-    return NextResponse.json(files);
+    return NextResponse.json({ success: true, data: files });
   } catch {
-    return NextResponse.json([]);
+    return NextResponse.json({ success: true, data: [] });
   }
 }
 
 export async function DELETE(request: Request) {
-  const auth = await requireAdminAPI();
-  if (auth) return auth;
-
   const { searchParams } = new URL(request.url);
   const name = searchParams.get('name') || searchParams.get('url');
-  if (!name) return NextResponse.json({ error: 'Name or URL required' }, { status: 400 });
+  if (!name) {
+    return NextResponse.json({ success: false, error: 'Name or URL required' }, { status: 400 });
+  }
 
   try {
     if (name.startsWith('http')) {
@@ -96,7 +93,7 @@ export async function DELETE(request: Request) {
     }
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Error deleting file:', error);
-    return NextResponse.json({ error: 'Failed to delete file' }, { status: 500 });
+    logger.error('Error deleting file', error as Error);
+    return handleApiError(error);
   }
 }

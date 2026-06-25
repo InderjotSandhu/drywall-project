@@ -1,61 +1,88 @@
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
-import { requireAdminAPI } from '@/lib/auth';
+import { handleApiError } from '@/lib/errors';
+import { logger } from '@/lib/logger';
+
+const updateServiceSchema = z.object({
+  title: z.string().min(1).optional(),
+  description: z.string().min(1).optional(),
+  detail: z.string().min(1).optional(),
+  order: z.number().int().optional(),
+  isActive: z.boolean().optional(),
+  id: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  features: z.array(z.object({
+    title: z.string().min(1),
+    description: z.string().min(1),
+  })).optional(),
+});
 
 export async function GET(_request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const auth = await requireAdminAPI();
-  if (auth) return auth;
-
-  const { id } = await params;
-  const service = await prisma.service.findUnique({
-    where: { id },
-    include: { tags: { orderBy: { order: 'asc' } }, features: { orderBy: { order: 'asc' } } },
-  });
-  if (!service) return NextResponse.json({ error: 'Not found' }, { status: 404 });
-  return NextResponse.json(service);
+  try {
+    const { id } = await params;
+    const service = await prisma.service.findUnique({
+      where: { id },
+      include: { tags: { orderBy: { order: 'asc' } }, features: { orderBy: { order: 'asc' } } },
+    });
+    if (!service) {
+      return NextResponse.json({ success: false, error: 'Not found' }, { status: 404 });
+    }
+    return NextResponse.json({ success: true, data: service });
+  } catch (error) {
+    logger.error('Error fetching service', error as Error);
+    return handleApiError(error);
+  }
 }
 
 export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const auth = await requireAdminAPI();
-  if (auth) return auth;
-
   try {
     const { id } = await params;
     const body = await request.json();
-    const { title, description, detail, order, isActive, id: newId } = body;
+    const data = updateServiceSchema.parse(body);
 
-    const data: Record<string, unknown> = { title, description, detail };
-    if (typeof order === 'number') data.order = order;
-    if (typeof isActive === 'boolean') data.isActive = isActive;
-    if (newId && newId !== id) data.id = newId;
+    await prisma.$transaction(async (tx) => {
+      const updateData: Record<string, unknown> = {};
+      if (data.title !== undefined) updateData.title = data.title;
+      if (data.description !== undefined) updateData.description = data.description;
+      if (data.detail !== undefined) updateData.detail = data.detail;
+      if (data.order !== undefined) updateData.order = data.order;
+      if (data.isActive !== undefined) updateData.isActive = data.isActive;
+      if (data.id && data.id !== id) updateData.id = data.id;
 
-    if (body.tags) {
-      await prisma.serviceTag.deleteMany({ where: { serviceId: id } });
-      data.tags = { create: body.tags.map((t: string, i: number) => ({ label: t, order: i })) };
-    }
-    if (body.features) {
-      await prisma.serviceFeature.deleteMany({ where: { serviceId: id } });
-      data.features = { create: body.features.map((f: { title: string; description: string }, i: number) => ({ ...f, order: i })) };
-    }
+      if (data.tags !== undefined) {
+        await tx.serviceTag.deleteMany({ where: { serviceId: id } });
+        updateData.tags = { create: data.tags.map((t, i) => ({ label: t, order: i })) };
+      }
+      if (data.features !== undefined) {
+        await tx.serviceFeature.deleteMany({ where: { serviceId: id } });
+        updateData.features = { create: data.features.map((f, i) => ({ title: f.title, description: f.description, order: i })) };
+      }
 
-    await prisma.service.update({ where: { id }, data });
+      await tx.service.update({ where: { id }, data: updateData });
+    });
+
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Error updating service:', error);
-    return NextResponse.json({ error: 'Failed to update service' }, { status: 500 });
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({
+        success: false,
+        error: 'Validation failed',
+        details: error.issues.map(e => ({ field: e.path.join('.'), message: e.message })),
+      }, { status: 400 });
+    }
+    logger.error('Error updating service', error as Error);
+    return handleApiError(error);
   }
 }
 
 export async function DELETE(_request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const auth = await requireAdminAPI();
-  if (auth) return auth;
-
   try {
     const { id } = await params;
     await prisma.service.delete({ where: { id } });
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Error deleting service:', error);
-    return NextResponse.json({ error: 'Failed to delete service' }, { status: 500 });
+    logger.error('Error deleting service', error as Error);
+    return handleApiError(error);
   }
 }

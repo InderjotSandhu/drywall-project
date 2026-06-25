@@ -1,5 +1,9 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { handleApiError } from '@/lib/errors';
+import { logger } from '@/lib/logger';
+
+export const revalidate = 300;
 
 export async function GET() {
   try {
@@ -12,9 +16,9 @@ export async function GET() {
       { count: 12, suffix: '',  label: 'Trade Awards Won' },
     ];
 
-    return NextResponse.json(stats);
+    return NextResponse.json({ success: true, data: stats });
   } catch (error) {
-    console.error('Error fetching stats:', error);
-    return NextResponse.json({ error: 'Failed to fetch stats' }, { status: 500 });
+    logger.error('Error fetching stats', error as Error);
+    return handleApiError(error);
   }
 }

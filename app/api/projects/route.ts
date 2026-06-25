@@ -1,15 +1,26 @@
 import { NextResponse } from 'next/server';
 import { prisma, withDbRetry } from '@/lib/prisma';
+import { handleApiError } from '@/lib/errors';
+import { logger } from '@/lib/logger';
+
+export const revalidate = 60;
 
 export async function GET() {
   try {
     const projects = await withDbRetry(() => prisma.project.findMany({
       where: { isActive: true },
       orderBy: { order: 'asc' },
-      include: {
-        images: { orderBy: { order: 'asc' } },
-        videos: { orderBy: { order: 'asc' } },
-        stats: { orderBy: { order: 'asc' } },
+      select: {
+        id: true,
+        title: true,
+        category: true,
+        description: true,
+        location: true,
+        image: true,
+        imageAlt: true,
+        images: { orderBy: { order: 'asc' }, select: { url: true } },
+        videos: { orderBy: { order: 'asc' }, select: { url: true } },
+        stats: { orderBy: { order: 'asc' }, select: { label: true, value: true } },
       },
     }));
 
@@ -26,9 +37,9 @@ export async function GET() {
       stats: p.stats.map((s) => ({ label: s.label, value: s.value })),
     }));
 
-    return NextResponse.json(formatted);
+    return NextResponse.json({ success: true, data: formatted });
   } catch (error) {
-    console.error('Error fetching projects:', error);
-    return NextResponse.json({ error: 'Failed to fetch projects' }, { status: 500 });
+    logger.error('Error fetching projects', error as Error);
+    return handleApiError(error);
   }
 }

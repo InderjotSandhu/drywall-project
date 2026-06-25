@@ -15,7 +15,7 @@ export default function AdminCollaborations() {
   useEffect(() => {
     fetch('/api/admin/collaborations')
       .then(r => r.json())
-      .then(d => { setItems(d.data); setLoading(false); })
+      .then(d => { setItems(d?.data ?? []); setLoading(false); })
       .catch(() => setLoading(false));
   }, []);
 

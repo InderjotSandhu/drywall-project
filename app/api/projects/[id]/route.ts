@@ -1,23 +1,34 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { handleApiError } from '@/lib/errors';
+import { logger } from '@/lib/logger';
+
+export const revalidate = 60;
 
 export async function GET(
-  request: Request,
+  _request: Request,
   props: { params: Promise<{ id: string }> }
 ) {
-  const params = await props.params;
   try {
+    const { id } = await props.params;
     const project = await prisma.project.findUnique({
-      where: { id: parseInt(params.id) },
-      include: {
-        images: { orderBy: { order: 'asc' } },
-        videos: { orderBy: { order: 'asc' } },
-        stats: { orderBy: { order: 'asc' } },
+      where: { id: parseInt(id) },
+      select: {
+        id: true,
+        title: true,
+        category: true,
+        description: true,
+        location: true,
+        image: true,
+        imageAlt: true,
+        images: { orderBy: { order: 'asc' }, select: { url: true } },
+        videos: { orderBy: { order: 'asc' }, select: { url: true } },
+        stats: { orderBy: { order: 'asc' }, select: { label: true, value: true } },
       },
     });
 
     if (!project) {
-      return NextResponse.json({ error: 'Project not found' }, { status: 404 });
+      return NextResponse.json({ success: false, error: 'Project not found' }, { status: 404 });
     }
 
     const formatted = {
@@ -33,9 +44,9 @@ export async function GET(
       stats: project.stats.map((s) => ({ label: s.label, value: s.value })),
     };
 
-    return NextResponse.json(formatted);
+    return NextResponse.json({ success: true, data: formatted });
   } catch (error) {
-    console.error('Error fetching project:', error);
-    return NextResponse.json({ error: 'Failed to fetch project' }, { status: 500 });
+    logger.error('Error fetching project', error as Error);
+    return handleApiError(error);
   }
 }

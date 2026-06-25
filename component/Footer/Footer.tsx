@@ -143,13 +143,14 @@ export default function Footer() {
           <ul className={styles.colList}>
             {NAV_LINKS.map(link => (
               <li key={link.label}>
-                <button
+                <a
+                  href={link.href}
                   className={styles.colLink}
-                  onClick={() => scrollTo(link.href)}
+                  onClick={(e) => { e.preventDefault(); scrollTo(link.href); }}
                 >
                   <span className={styles.colLinkDot} aria-hidden="true" />
                   {link.label}
-                </button>
+                </a>
               </li>
             ))}
           </ul>
@@ -161,13 +162,14 @@ export default function Footer() {
           <ul className={styles.colList}>
             {SERVICES.map(s => (
               <li key={s}>
-                <button
+                <a
+                  href="#services"
                   className={styles.colLink}
-                  onClick={() => scrollTo('#services')}
+                  onClick={(e) => { e.preventDefault(); scrollTo('#services'); }}
                 >
                   <span className={styles.colLinkDot} aria-hidden="true" />
                   {s}
-                </button>
+                </a>
               </li>
             ))}
           </ul>
@@ -181,9 +183,10 @@ export default function Footer() {
             <p className={styles.ctaCardText}>
               Ready to start your next project? Get a free no-obligation quote today.
             </p>
-            <button
+            <a
+              href="#contact"
               className={styles.ctaBtn}
-              onClick={() => scrollTo('#contact')}
+              onClick={(e) => { e.preventDefault(); scrollTo('#contact'); }}
             >
               Get a Free Quote
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
@@ -191,7 +194,7 @@ export default function Footer() {
                 strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
-            </button>
+            </a>
             <div className={styles.ctaBadges}>
               {['Licensed', 'Insured', 'Free Estimates'].map(b => (
                 <span key={b} className={styles.ctaBadge}>

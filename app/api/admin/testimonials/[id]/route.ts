@@ -1,50 +1,62 @@
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
-import { requireAdminAPI } from '@/lib/auth';
+import { handleApiError } from '@/lib/errors';
+import { logger } from '@/lib/logger';
+
+const updateTestimonialSchema = z.object({
+  name: z.string().min(1).optional(),
+  quote: z.string().min(1).optional(),
+  order: z.number().int().optional(),
+  isActive: z.boolean().optional(),
+});
 
 export async function GET(_request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const auth = await requireAdminAPI();
-  if (auth) return auth;
-
-  const { id } = await params;
-  const testimonial = await prisma.testimonial.findUnique({ where: { id: Number(id) } });
-  if (!testimonial) return NextResponse.json({ error: 'Not found' }, { status: 404 });
-  return NextResponse.json(testimonial);
+  try {
+    const { id } = await params;
+    const testimonial = await prisma.testimonial.findUnique({ where: { id: Number(id) } });
+    if (!testimonial) {
+      return NextResponse.json({ success: false, error: 'Not found' }, { status: 404 });
+    }
+    return NextResponse.json({ success: true, data: testimonial });
+  } catch (error) {
+    logger.error('Error fetching testimonial', error as Error);
+    return handleApiError(error);
+  }
 }
 
 export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const auth = await requireAdminAPI();
-  if (auth) return auth;
-
   try {
     const { id } = await params;
     const body = await request.json();
+    const data = updateTestimonialSchema.parse(body);
+
     const testimonial = await prisma.testimonial.update({
       where: { id: Number(id) },
-      data: {
-        name: body.name,
-        quote: body.quote,
-        order: typeof body.order === 'number' ? body.order : 0,
-        isActive: body.isActive !== false,
-      },
+      data,
     });
-    return NextResponse.json(testimonial);
+
+    return NextResponse.json({ success: true, data: testimonial });
   } catch (error) {
-    console.error('Error updating testimonial:', error);
-    return NextResponse.json({ error: 'Failed to update testimonial' }, { status: 500 });
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({
+        success: false,
+        error: 'Validation failed',
+        details: error.issues.map(e => ({ field: e.path.join('.'), message: e.message })),
+      }, { status: 400 });
+    }
+    logger.error('Error updating testimonial', error as Error);
+    return handleApiError(error);
   }
 }
 
 export async function DELETE(_request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const auth = await requireAdminAPI();
-  if (auth) return auth;
-
   try {
     const { id } = await params;
     await prisma.testimonial.delete({ where: { id: Number(id) } });
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Error deleting testimonial:', error);
-    return NextResponse.json({ error: 'Failed to delete testimonial' }, { status: 500 });
+    logger.error('Error deleting testimonial', error as Error);
+    return handleApiError(error);
   }
 }

@@ -1,51 +1,71 @@
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
-import { requireAdminAPI } from '@/lib/auth';
+import { handleApiError } from '@/lib/errors';
+import { logger } from '@/lib/logger';
+
+const projectStatSchema = z.object({
+  label: z.string().min(1),
+  value: z.string().min(1),
+});
+
+const createProjectSchema = z.object({
+  title: z.string().min(1, 'Title is required'),
+  category: z.string().min(1, 'Category is required'),
+  description: z.string().min(1, 'Description is required'),
+  location: z.string().optional().nullable(),
+  image: z.string().min(1, 'Image is required'),
+  imageAlt: z.string().optional().nullable(),
+  order: z.number().int().optional().default(0),
+  isActive: z.boolean().optional().default(true),
+  stats: z.array(projectStatSchema).optional(),
+});
 
 export async function POST(request: Request) {
-  const auth = await requireAdminAPI();
-  if (auth) return auth;
-
   try {
     const body = await request.json();
-    const { title, category, description, location, image, imageAlt, order, isActive, stats } = body;
+    const data = createProjectSchema.parse(body);
 
     const project = await prisma.project.create({
       data: {
-        title,
-        category,
-        description,
-        location: location || null,
-        image,
-        imageAlt: imageAlt || null,
-        order: typeof order === 'number' ? order : 0,
-        isActive: isActive !== false,
-        stats: stats?.length
-          ? { create: stats.map((s: { label: string; value: string }, i: number) => ({ label: s.label, value: s.value, order: i })) }
+        title: data.title,
+        category: data.category,
+        description: data.description,
+        location: data.location || null,
+        image: data.image,
+        imageAlt: data.imageAlt || null,
+        order: data.order,
+        isActive: data.isActive,
+        stats: data.stats?.length
+          ? { create: data.stats.map((s, i) => ({ label: s.label, value: s.value, order: i })) }
           : undefined,
       },
       include: { stats: true },
     });
 
-    return NextResponse.json(project, { status: 201 });
+    return NextResponse.json({ success: true, data: project }, { status: 201 });
   } catch (error) {
-    console.error('Error creating project:', error);
-    return NextResponse.json({ error: 'Failed to create project' }, { status: 500 });
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({
+        success: false,
+        error: 'Validation failed',
+        details: error.issues.map(e => ({ field: e.path.join('.'), message: e.message })),
+      }, { status: 400 });
+    }
+    logger.error('Error creating project', error as Error);
+    return handleApiError(error);
   }
 }
 
 export async function GET() {
-  const auth = await requireAdminAPI();
-  if (auth) return auth;
-
   try {
     const projects = await prisma.project.findMany({
       orderBy: { order: 'asc' },
       include: { images: true, videos: true, stats: true },
     });
-    return NextResponse.json(projects);
+    return NextResponse.json({ success: true, data: projects });
   } catch (error) {
-    console.error('Error fetching projects:', error);
-    return NextResponse.json({ error: 'Failed to fetch projects' }, { status: 500 });
+    logger.error('Error fetching projects', error as Error);
+    return handleApiError(error);
   }
 }

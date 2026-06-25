@@ -1,56 +1,60 @@
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
 import { sendQuoteConfirmation, sendAdminQuoteNotification } from '@/lib/email';
 import { checkFormRateLimit } from '@/lib/rate-limit';
+import { handleApiError } from '@/lib/errors';
+import { logger } from '@/lib/logger';
+
+const quoteSchema = z.object({
+  name: z.string().min(1, 'Name is required'),
+  email: z.string().email('Valid email is required'),
+  phone: z.string().optional().nullable(),
+  projectType: z.string().min(1, 'Project type is required'),
+  budget: z.string().optional().nullable(),
+  message: z.string().min(1, 'Message is required'),
+});
 
 export async function POST(request: Request) {
   try {
     const { allowed, resetInMs } = checkFormRateLimit(request);
     if (!allowed) {
       return NextResponse.json({
+        success: false,
         error: `Too many requests. Try again in ${Math.ceil(resetInMs / 1000 / 60)} minutes.`,
       }, { status: 429 });
     }
 
     const body = await request.json();
-    const { name, email, phone, projectType, budget, message } = body;
+    const data = quoteSchema.parse(body);
 
-    if (!name || !email || !projectType || !message) {
-      return NextResponse.json(
-        { error: 'Missing required fields' },
-        { status: 400 }
-      );
-    }
-
-    const submission = await prisma.quoteSubmission.create({
-      data: {
-        name,
-        email,
-        phone: phone || null,
-        projectType,
-        budget: budget || null,
-        message,
-      },
-    });
+    const submission = await prisma.quoteSubmission.create({ data });
 
     try {
       await Promise.allSettled([
-        sendQuoteConfirmation({ name, email, projectType }),
-        submission.status === 'new' ? sendAdminQuoteNotification({ name, email, phone, projectType, budget, message }) : Promise.resolve(),
+        sendQuoteConfirmation({ name: data.name, email: data.email, projectType: data.projectType }),
+        sendAdminQuoteNotification({
+          name: data.name, email: data.email, phone: data.phone ?? undefined,
+          projectType: data.projectType, budget: data.budget ?? undefined, message: data.message,
+        }),
       ]);
     } catch {
       // Email failure should not block the submission
     }
 
     return NextResponse.json(
-      { message: 'Quote request submitted successfully', id: submission.id },
+      { success: true, message: 'Quote request submitted successfully', id: submission.id },
       { status: 201 }
     );
   } catch (error) {
-    console.error('Error submitting quote:', error);
-    return NextResponse.json(
-      { error: 'Failed to submit quote request' },
-      { status: 500 }
-    );
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({
+        success: false,
+        error: 'Validation failed',
+        details: error.issues.map(e => ({ field: e.path.join('.'), message: e.message })),
+      }, { status: 400 });
+    }
+    logger.error('Error submitting quote', error as Error);
+    return handleApiError(error);
   }
 }

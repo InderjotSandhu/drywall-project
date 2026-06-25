@@ -17,8 +17,8 @@ export default function EditCollaboration() {
     fetch(`/api/admin/collaborations/${params.id}`)
       .then(r => r.json())
       .then(r => {
-        const d = r.data;
-        setForm({ name: d.name, logo: d.logo, description: d.description || '', order: d.order, isActive: d.isActive });
+        const d = r?.data;
+        if (d) setForm({ name: d.name, logo: d.logo, description: d.description || '', order: d.order, isActive: d.isActive });
         setLoading(false);
       })
       .catch(() => setLoading(false));

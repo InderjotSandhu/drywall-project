@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useCallback, useState } from 'react';
+import Image from 'next/image';
 import styles from './ProjectCarousel.module.css';
 import type { Project } from './ProjectCarousel.types';
 
@@ -86,7 +87,7 @@ function SlideshowModal({ project, onClose }: { project: Project; onClose: () =>
               className={styles.slideshowImage}
             />
           ) : (
-            <img key={idx} src={current.src} alt={`${project.title} — ${idx + 1}`} className={styles.slideshowImage} />
+            <Image key={idx} src={current.src} alt={`${project.title} — ${idx + 1}`} fill className={styles.slideshowImage} sizes="(max-width: 768px) 100vw, 900px" />
           )}
 
           {allMedia.length > 1 && (
@@ -176,7 +177,7 @@ function PhotoGridModal({ projects, onSelect, onClose }: {
           <div className={styles.photoGrid} style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}>
             {projects.map(p => (
               <button key={p.id} className={styles.photoCard} onClick={() => onSelect(p)} aria-label={`Open ${p.title}`}>
-                <img src={p.image} alt={p.title} className={styles.photoCardImg} />
+                <Image src={p.image} alt={p.title} fill className={styles.photoCardImg} sizes="(max-width: 768px) 45vw, (max-width: 1280px) 25vw, 300px" />
                 <div className={styles.photoCardOverlay}>
                   <span className={styles.photoCardCategory}>{p.category}</span>
                   <span className={styles.photoCardTitle}>{p.title}</span>
@@ -222,7 +223,7 @@ export default function ProjectCarousel() {
   useEffect(() => {
     fetch('/api/projects')
       .then(res => res.json())
-      .then(data => { setProjects(Array.isArray(data) ? data : []); setLoading(false); })
+      .then(data => { setProjects(data?.data ?? (Array.isArray(data) ? data : [])); setLoading(false); })
       .catch(() => setLoading(false));
   }, []);
 
@@ -388,21 +389,29 @@ export default function ProjectCarousel() {
                 <div key={project.id}
                   className={[styles.item, cardStates[i]?.front ? styles.itemFront : '', cardStates[i]?.visible ? styles.itemVisible : ''].join(' ')}
                   style={{ zIndex: cardStates[i]?.zIndex ?? 0, transform: `rotateY(${i * (360 / total)}deg) translateZ(${cp.translateZ}px)` }}>
-                  <img src={project.image} alt={project.imageAlt ?? project.title} draggable={false} />
+                  <Image src={project.image} alt={project.imageAlt ?? project.title} fill draggable={false} sizes="(max-width: 768px) 90vw, 280px" />
                 </div>
               ))}
             </div>
 
             {/* Controls */}
             <div className={styles.controls}>
-              <button className={styles.ctrlBtn} onClick={rotatePrev} aria-label="Previous">&#8249;</button>
+              <button className={styles.ctrlBtn} onClick={rotatePrev} aria-label="Previous">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </button>
               <button className={styles.detailsBtn} onClick={() => { setModalSource('carousel'); setModalProject(projects[frontIndex]); }}>
                 <span>View Details</span>
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
               </button>
-              <button className={styles.ctrlBtn} onClick={rotateNext} aria-label="Next">&#8250;</button>
+              <button className={styles.ctrlBtn} onClick={rotateNext} aria-label="Next">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </button>
             </div>
 
             {/* See All */}

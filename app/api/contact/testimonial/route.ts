@@ -1,42 +1,40 @@
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
+import { handleApiError } from '@/lib/errors';
+import { logger } from '@/lib/logger';
+
+const testimonialSchema = z.object({
+  name: z.string().min(1, 'Name is required'),
+  quote: z.string().min(10, 'Please write at least a few more words'),
+});
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, quote } = body;
-
-    if (!name || !quote) {
-      return NextResponse.json(
-        { error: 'Name and review are required' },
-        { status: 400 }
-      );
-    }
-
-    if (quote.trim().length < 10) {
-      return NextResponse.json(
-        { error: 'Please write at least a few more words' },
-        { status: 400 }
-      );
-    }
+    const data = testimonialSchema.parse(body);
 
     const testimonial = await prisma.testimonial.create({
       data: {
-        name: name.trim(),
-        quote: quote.trim(),
+        name: data.name.trim(),
+        quote: data.quote.trim(),
         isActive: false,
       },
     });
 
     return NextResponse.json(
-      { message: 'Review submitted successfully! It will be visible after review.', id: testimonial.id },
+      { success: true, message: 'Review submitted successfully! It will be visible after review.', id: testimonial.id },
       { status: 201 }
     );
   } catch (error) {
-    console.error('Error submitting testimonial:', error);
-    return NextResponse.json(
-      { error: 'Failed to submit review' },
-      { status: 500 }
-    );
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({
+        success: false,
+        error: error.issues[0]?.message || 'Validation failed',
+        details: error.issues.map(e => ({ field: e.path.join('.'), message: e.message })),
+      }, { status: 400 });
+    }
+    logger.error('Error submitting testimonial', error as Error);
+    return handleApiError(error);
   }
 }

@@ -1,5 +1,9 @@
 import { NextResponse } from 'next/server';
 import { prisma, withDbRetry } from '@/lib/prisma';
+import { handleApiError } from '@/lib/errors';
+import { logger } from '@/lib/logger';
+
+export const revalidate = 120;
 
 export async function GET() {
   try {
@@ -8,9 +12,9 @@ export async function GET() {
       orderBy: { order: 'asc' },
     }));
 
-    return NextResponse.json(testimonials);
+    return NextResponse.json({ success: true, data: testimonials });
   } catch (error) {
-    console.error('Error fetching testimonials:', error);
-    return NextResponse.json({ error: 'Failed to fetch testimonials' }, { status: 500 });
+    logger.error('Error fetching testimonials', error as Error);
+    return handleApiError(error);
   }
 }

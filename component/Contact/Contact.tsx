@@ -68,6 +68,7 @@ function QuoteForm() {
   const [touched, setTouched] = useState<Partial<Record<keyof QuoteForm, boolean>>>({});
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const statusRef = useRef<HTMLDivElement>(null);
 
   const set = (field: keyof QuoteForm) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -115,9 +116,13 @@ function QuoteForm() {
     }
   };
 
+  useEffect(() => {
+    if (statusRef.current) statusRef.current.focus();
+  }, [success, submitError]);
+
   if (success) {
     return (
-      <div className={styles.successBox}>
+      <div className={styles.successBox} role="alert" aria-live="polite" tabIndex={-1} ref={statusRef}>
         <div className={styles.successIcon}>
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
             stroke="#c9973a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -137,10 +142,10 @@ function QuoteForm() {
   }
 
   return (
-    <form className={styles.form} onSubmit={submit} noValidate>
+    <form className={styles.form} onSubmit={submit} noValidate aria-label="Get a Quote form">
 
       {submitError && (
-        <div className={styles.errorMsg} style={{ marginBottom: '16px', textAlign: 'center' }}>
+        <div className={styles.errorMsg} style={{ marginBottom: '16px', textAlign: 'center' }} role="alert" aria-live="assertive">
           {submitError}
         </div>
       )}
@@ -271,6 +276,7 @@ function CareerForm() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const statusRef = useRef<HTMLDivElement>(null);
 
   const set = (field: keyof CareerForm) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -316,9 +322,13 @@ function CareerForm() {
     }
   };
 
+  useEffect(() => {
+    if (statusRef.current) statusRef.current.focus();
+  }, [success, submitError]);
+
   if (success) {
     return (
-      <div className={styles.successBox}>
+      <div className={styles.successBox} role="alert" aria-live="polite" tabIndex={-1} ref={statusRef}>
         <div className={styles.successIcon}>
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
             stroke="#c9973a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -338,10 +348,10 @@ function CareerForm() {
   }
 
   return (
-    <form className={styles.form} onSubmit={submit} noValidate>
+    <form className={styles.form} onSubmit={submit} noValidate aria-label="Job application form">
 
       {submitError && (
-        <div className={styles.errorMsg} style={{ marginBottom: '16px', textAlign: 'center' }}>
+        <div className={styles.errorMsg} style={{ marginBottom: '16px', textAlign: 'center' }} role="alert" aria-live="assertive">
           {submitError}
         </div>
       )}
@@ -617,13 +627,17 @@ export default function Contact() {
 
             <div className={styles.trustGrid}>
               {[
-                { icon: '✓', text: 'Licensed & Insured' },
-                { icon: '✓', text: 'Free Estimates'      },
-                { icon: '✓', text: '5-Year Warranty'     },
-                { icon: '✓', text: 'Same-Day Response'   },
-              ].map(({ icon, text }) => (
+                'Licensed & Insured',
+                'Free Estimates',
+                '5-Year Warranty',
+                'Same-Day Response',
+              ].map(text => (
                 <div key={text} className={styles.trustItem}>
-                  <span className={styles.trustIcon}>{icon}</span>
+                  <span className={styles.trustIcon}>
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#c9973a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  </span>
                   <span className={styles.trustText}>{text}</span>
                 </div>
               ))}

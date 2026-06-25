@@ -60,7 +60,7 @@ export default function Testimonials() {
   useEffect(() => {
     fetch('/api/testimonials')
       .then(res => res.json())
-      .then(data => { setTestimonials(Array.isArray(data) ? data : []); setLoading(false); })
+      .then(data => { setTestimonials(data?.data ?? (Array.isArray(data) ? data : [])); setLoading(false); })
       .catch(() => setLoading(false));
   }, []);
 

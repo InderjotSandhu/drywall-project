@@ -15,8 +15,8 @@ export default function EditTestimonial() {
     fetch(`/api/admin/testimonials/${params.id}`)
       .then(res => res.json())
       .then(r => {
-        const d = r.data;
-        setForm({ name: d.name, quote: d.quote, order: d.order ?? 0, isActive: d.isActive !== false });
+        const d = r?.data;
+        if (d) setForm({ name: d.name, quote: d.quote, order: d.order ?? 0, isActive: d.isActive !== false });
         setLoading(false);
       })
       .catch(() => setLoading(false));

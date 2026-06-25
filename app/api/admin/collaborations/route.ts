@@ -1,35 +1,44 @@
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
-import { requireAdminAPI } from '@/lib/auth';
+import { handleApiError } from '@/lib/errors';
+import { logger } from '@/lib/logger';
+
+const createCollaborationSchema = z.object({
+  name: z.string().min(1, 'Name is required'),
+  logo: z.string().min(1, 'Logo URL is required'),
+  description: z.string().optional().nullable(),
+  order: z.number().int().optional().default(0),
+  isActive: z.boolean().optional().default(true),
+});
 
 export async function GET() {
-  const auth = await requireAdminAPI();
-  if (auth) return auth;
-
-  const collaborations = await prisma.collaboration.findMany({ orderBy: { order: 'asc' } });
-  return NextResponse.json(collaborations);
+  try {
+    const collaborations = await prisma.collaboration.findMany({ orderBy: { order: 'asc' } });
+    return NextResponse.json({ success: true, data: collaborations });
+  } catch (error) {
+    logger.error('Error fetching collaborations', error as Error);
+    return handleApiError(error);
+  }
 }
 
 export async function POST(request: Request) {
-  const auth = await requireAdminAPI();
-  if (auth) return auth;
-
   try {
     const body = await request.json();
-    const { name, logo, description, order, isActive } = body;
+    const data = createCollaborationSchema.parse(body);
 
-    const collaboration = await prisma.collaboration.create({
-      data: {
-        name, logo,
-        description: description || null,
-        order: typeof order === 'number' ? order : 0,
-        isActive: isActive !== false,
-      },
-    });
+    const collaboration = await prisma.collaboration.create({ data });
 
-    return NextResponse.json(collaboration, { status: 201 });
+    return NextResponse.json({ success: true, data: collaboration }, { status: 201 });
   } catch (error) {
-    console.error('Error creating collaboration:', error);
-    return NextResponse.json({ error: 'Failed to create collaboration' }, { status: 500 });
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({
+        success: false,
+        error: 'Validation failed',
+        details: error.issues.map(e => ({ field: e.path.join('.'), message: e.message })),
+      }, { status: 400 });
+    }
+    logger.error('Error creating collaboration', error as Error);
+    return handleApiError(error);
   }
 }

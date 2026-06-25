@@ -1,195 +1,192 @@
-# Graph Report - drywall-project  (2026-05-23)
+# Graph Report - .  (2026-06-25)
 
 ## Corpus Check
-- 95 files · ~1,392,860 words
-- Verdict: corpus is large enough that graph structure adds value.
+- Large corpus: 165 files · ~1,460,051 words. Semantic extraction will be expensive (many Claude tokens). Consider running on a subfolder.
 
 ## Summary
-- 510 nodes · 588 edges · 48 communities (39 shown, 9 thin omitted)
-- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
+- 583 nodes · 839 edges · 59 communities (37 shown, 22 thin omitted)
+- Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 47 edges (avg confidence: 0.81)
 - Token cost: 0 input · 0 output
 
-## Graph Freshness
-- Built from commit: `5dc9838a`
-- Run `git rev-parse HEAD` and compare to check if the graph is stale.
-- Run `graphify update .` after code changes (no API cost).
-
 ## Community Hubs (Navigation)
-- [[_COMMUNITY_Community 0|Community 0]]
-- [[_COMMUNITY_Community 1|Community 1]]
-- [[_COMMUNITY_Community 2|Community 2]]
-- [[_COMMUNITY_Community 3|Community 3]]
-- [[_COMMUNITY_Community 4|Community 4]]
-- [[_COMMUNITY_Community 5|Community 5]]
-- [[_COMMUNITY_Community 6|Community 6]]
-- [[_COMMUNITY_Community 7|Community 7]]
-- [[_COMMUNITY_Community 8|Community 8]]
-- [[_COMMUNITY_Community 9|Community 9]]
-- [[_COMMUNITY_Community 10|Community 10]]
-- [[_COMMUNITY_Community 11|Community 11]]
-- [[_COMMUNITY_Community 12|Community 12]]
-- [[_COMMUNITY_Community 13|Community 13]]
-- [[_COMMUNITY_Community 14|Community 14]]
-- [[_COMMUNITY_Community 15|Community 15]]
-- [[_COMMUNITY_Community 16|Community 16]]
-- [[_COMMUNITY_Community 17|Community 17]]
-- [[_COMMUNITY_Community 18|Community 18]]
-- [[_COMMUNITY_Community 19|Community 19]]
-- [[_COMMUNITY_Community 20|Community 20]]
-- [[_COMMUNITY_Community 21|Community 21]]
-- [[_COMMUNITY_Community 22|Community 22]]
-- [[_COMMUNITY_Community 23|Community 23]]
-- [[_COMMUNITY_Community 24|Community 24]]
-- [[_COMMUNITY_Community 25|Community 25]]
-- [[_COMMUNITY_Community 26|Community 26]]
-- [[_COMMUNITY_Community 27|Community 27]]
-- [[_COMMUNITY_Community 28|Community 28]]
-- [[_COMMUNITY_Community 29|Community 29]]
-- [[_COMMUNITY_Community 30|Community 30]]
-- [[_COMMUNITY_Community 41|Community 41]]
-- [[_COMMUNITY_Community 42|Community 42]]
+- [[_COMMUNITY_Admin API Routes|Admin API Routes]]
+- [[_COMMUNITY_Admin & Lib Core|Admin & Lib Core]]
+- [[_COMMUNITY_UI Components|UI Components]]
+- [[_COMMUNITY_Public API|Public API]]
+- [[_COMMUNITY_Admin Dashboard Pages|Admin Dashboard Pages]]
+- [[_COMMUNITY_Auth & Media|Auth & Media]]
+- [[_COMMUNITY_Project Management|Project Management]]
+- [[_COMMUNITY_Testimonials & Collaborations|Testimonials & Collaborations]]
+- [[_COMMUNITY_Services|Services]]
+- [[_COMMUNITY_Contact Forms|Contact Forms]]
+- [[_COMMUNITY_Configuration|Configuration]]
+- [[_COMMUNITY_Migration & Scripts|Migration & Scripts]]
+- [[_COMMUNITY_Error Handling|Error Handling]]
+- [[_COMMUNITY_Logger|Logger]]
+- [[_COMMUNITY_Prisma Database|Prisma Database]]
+- [[_COMMUNITY_Email Service|Email Service]]
+- [[_COMMUNITY_Rate Limiting|Rate Limiting]]
+- [[_COMMUNITY_API Types|API Types]]
+- [[_COMMUNITY_Seed Data|Seed Data]]
+- [[_COMMUNITY_Media Upload|Media Upload]]
+- [[_COMMUNITY_Push Notifications|Push Notifications]]
+- [[_COMMUNITY_Admin Nav|Admin Nav]]
+- [[_COMMUNITY_Review Form|Review Form]]
+- [[_COMMUNITY_Change Password|Change Password]]
+- [[_COMMUNITY_Privacy Page|Privacy Page]]
+- [[_COMMUNITY_Terms Page|Terms Page]]
+- [[_COMMUNITY_Home Page|Home Page]]
+- [[_COMMUNITY_About Section|About Section]]
+- [[_COMMUNITY_Hero Section|Hero Section]]
+- [[_COMMUNITY_Project Dependencies|Project Dependencies]]
+- [[_COMMUNITY_Blob Migration|Blob Migration]]
+- [[_COMMUNITY_Services CRUD|Services CRUD]]
+- [[_COMMUNITY_Testimonials CRUD|Testimonials CRUD]]
+- [[_COMMUNITY_Submissions CRUD|Submissions CRUD]]
+- [[_COMMUNITY_Health Check|Health Check]]
+- [[_COMMUNITY_Stats|Stats]]
+- [[_COMMUNITY_Notification Setup|Notification Setup]]
+- [[_COMMUNITY_AdminLogin Page|AdminLogin Page]]
+- [[_COMMUNITY_Dashboard Page|Dashboard Page]]
+- [[_COMMUNITY_ChangePassword Page|ChangePassword Page]]
+- [[_COMMUNITY_Collaborations Admin|Collaborations Admin]]
+- [[_COMMUNITY_Media Admin|Media Admin]]
+- [[_COMMUNITY_Projects Admin|Projects Admin]]
+- [[_COMMUNITY_Services Admin|Services Admin]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `requireAdminAPI()` - 41 edges
-2. `compilerOptions` - 17 edges
-3. `Backend Documentation — New Canadian Drywall` - 15 edges
-4. `4.2 The Schema (`prisma/schema.prisma`)` - 12 edges
-5. `5. API Routes — Every Endpoint` - 12 edges
-6. `8. Media Storage — Vercel Blob & Local Fallback` - 10 edges
-7. `All Phases Complete — Ready for Deployment` - 9 edges
-8. `Deployment Guide — New Canadian Drywall` - 9 edges
-9. `scripts` - 8 edges
-10. `Endpoints` - 8 edges
+1. `handleApiError()` - 61 edges
+2. `Logger` - 28 edges
+3. `compilerOptions` - 17 edges
+4. `Backend Documentation` - 16 edges
+5. `withDbRetry()` - 11 edges
+6. `PrismaClient Singleton` - 11 edges
+7. `scripts` - 8 edges
+8. `HomePage` - 8 edges
+9. `Contact` - 8 edges
+10. `POST()` - 7 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `POST()` --calls--> `requireAdminAPI()`  [EXTRACTED]
-  app/api/admin/change-password/route.ts → lib/auth.ts
-- `GET()` --calls--> `requireAdminAPI()`  [EXTRACTED]
-  app/api/admin/collaborations/route.ts → lib/auth.ts
-- `POST()` --calls--> `requireAdminAPI()`  [EXTRACTED]
-  app/api/admin/collaborations/route.ts → lib/auth.ts
-- `GET()` --calls--> `requireAdminAPI()`  [EXTRACTED]
-  app/api/admin/collaborations/[id]/route.ts → lib/auth.ts
-- `PUT()` --calls--> `requireAdminAPI()`  [EXTRACTED]
-  app/api/admin/collaborations/[id]/route.ts → lib/auth.ts
+- `POST /api/upload` --calls--> `uploadFile`  [EXTRACTED]
+  docs/BACKEND_DOCUMENTATION.md → lib/media.ts
+- `deleteFile` --calls--> `Vercel Blob Storage`  [EXTRACTED]
+  lib/media.ts → docs/BACKEND_DOCUMENTATION.md
+- `POST /api/contact/quote` --references--> `QuoteSubmission model`  [EXTRACTED]
+  docs/API_TESTING.md → prisma/seed.ts
+- `POST /api/contact/career` --references--> `CareerSubmission model`  [EXTRACTED]
+  docs/API_TESTING.md → prisma/seed.ts
+- `Next.js 15 App Router` --conceptually_related_to--> `Vercel Deployment`  [INFERRED]
+  docs/BACKEND_DOCUMENTATION.md → vercel.json
 
-## Communities (48 total, 9 thin omitted)
+## Communities (59 total, 22 thin omitted)
 
-### Community 0 - "Community 0"
+### Community 0 - "Admin API Routes"
 Cohesion: 0.06
-Nodes (27): DELETE(), GET(), PUT(), GET(), DELETE(), GET(), PUT(), GET() (+19 more)
+Nodes (52): DELETE(), GET(), PUT(), GET(), DELETE(), GET(), PUT(), GET() (+44 more)
 
-### Community 1 - "Community 1"
+### Community 1 - "Admin & Lib Core"
+Cohesion: 0.06
+Nodes (53): Admin Change Password POST, Admin Collaborations GET, Admin Collaborations POST, Admin Collaboration By ID DELETE, Admin Collaboration By ID GET, Admin Collaboration By ID PUT, Admin Media DELETE, Admin Media GET (+45 more)
+
+### Community 2 - "UI Components"
 Cohesion: 0.05
-Nodes (42): 10. Common Commands, 11.1 Using a Browser (for GET requests), 11.2 Using curl (command line), 11.3 Using Postman, 11.4 Using the DevTools Network Tab, 11. How to Test APIs, 12. Complete Flow Walkthroughs, 13. Troubleshooting (+34 more)
+Nodes (45): API: GET /api/admin/submissions, Auth Login API, API: POST /api/auth/logout, API: GET /api/collaborations, API: POST /api/contact/career, API: POST /api/contact/quote, API: POST /api/contact/testimonial, API: GET /api/projects (+37 more)
 
-### Community 2 - "Community 2"
+### Community 3 - "Public API"
+Cohesion: 0.07
+Nodes (45): GET /api/collaborations, GET /api/projects/[id], GET /api/projects, GET /api/services, GET /api/testimonials, POST /api/contact/career, POST /api/contact/quote, POST /api/upload (+37 more)
+
+### Community 4 - "Admin Dashboard Pages"
+Cohesion: 0.05
+Nodes (20): REVIEW_EMPTY, ReviewErrors, ReviewForm, AVAILABILITY, BUDGET_RANGES, CAREER_EMPTY, CareerErrors, CareerForm (+12 more)
+
+### Community 5 - "Auth & Media"
 Cohesion: 0.06
-Nodes (30): dependencies, dotenv, next, prisma, @prisma/client, react, react-dom, resend (+22 more)
+Nodes (31): dependencies, dotenv, next, prisma, @prisma/client, react, react-dom, resend (+23 more)
 
-### Community 3 - "Community 3"
+### Community 6 - "Project Management"
 Cohesion: 0.07
 Nodes (6): ROWS, Partner, Service, SERVICE_ICONS, ServiceFeature, Testimonial
 
-### Community 4 - "Community 4"
-Cohesion: 0.07
-Nodes (27): 1. Get All Projects, 2. Get Single Project, 3. Get All Testimonials, 4. Get All Services, 5. Get All Collaborations, 6. Submit Quote Request, 7. Submit Career Application, API Testing Guide (+19 more)
+### Community 7 - "Testimonials & Collaborations"
+Cohesion: 0.12
+Nodes (27): Admin API Routes, File Upload API, ChangePassword, EditCollaboration, NewCollaboration, AdminCollaborations, AdminMedia, AdminDashboard (+19 more)
 
-### Community 5 - "Community 5"
-Cohesion: 0.15
-Nodes (15): POST(), links, checkEnvironmentVariables(), DashboardLayout(), clearSession(), createSession(), getSecret(), getSession() (+7 more)
+### Community 8 - "Services"
+Cohesion: 0.14
+Nodes (16): changePasswordSchema, POST(), links, checkEnvironmentVariables(), DashboardLayout(), clearSession(), createSession(), getSecret() (+8 more)
 
-### Community 6 - "Community 6"
-Cohesion: 0.08
-Nodes (25): 5.10 POST /api/contact/career — Submit Career Application, 5.11 POST /api/upload — Upload a File (Image or Video), 5.1 How API Routes Work in Next.js, 5.2 HTTP Methods Explained, 5.3 API Responses (HTTP Status Codes), 5.4 GET /api/projects — Fetch All Projects, 5.5 GET /api/projects/[id] — Fetch Single Project, 5.6 GET /api/testimonials — Fetch Testimonials (+17 more)
+### Community 9 - "Contact Forms"
+Cohesion: 0.18
+Nodes (19): careerSchema, POST(), adminCareerNotificationHtml(), adminQuoteNotificationHtml(), careerConfirmationHtml(), isConfigured(), quoteConfirmationHtml(), sendAdminCareerNotification() (+11 more)
 
-### Community 7 - "Community 7"
-Cohesion: 0.09
-Nodes (8): REVIEW_EMPTY, ReviewErrors, ReviewForm, NAV_LINKS, SERVICES, SOCIALS, PageWrapperProps, NAV_LINKS
-
-### Community 8 - "Community 8"
+### Community 10 - "Configuration"
 Cohesion: 0.10
 Nodes (20): compilerOptions, allowJs, baseUrl, esModuleInterop, incremental, isolatedModules, jsx, lib (+12 more)
 
-### Community 9 - "Community 9"
+### Community 11 - "Migration & Scripts"
 Cohesion: 0.20
 Nodes (16): ALLOWED_IMAGE_TYPES, ALLOWED_VIDEO_TYPES, deleteFile(), generateFilename(), getFileExtension(), isAllowedFileType(), isBlobConfigured(), isImageType() (+8 more)
 
-### Community 10 - "Community 10"
-Cohesion: 0.11
-Nodes (18): 4.1 What is a Database?, 4.2 The Schema (`prisma/schema.prisma`), 4.3 Relations (How Tables Connect), 4.4 How to Modify the Database, 4.5 The Seed Script (`prisma/seed.ts`), 4. The Database — Prisma + SQLite, `CareerSubmission`, code:block2 (Project ──has many──→ ProjectImage (projectId)) (+10 more)
-
-### Community 11 - "Community 11"
-Cohesion: 0.12
-Nodes (12): AVAILABILITY, BUDGET_RANGES, CAREER_EMPTY, CareerErrors, CareerForm, PROJECT_TYPES, QUOTE_EMPTY, QuoteErrors (+4 more)
-
-### Community 12 - "Community 12"
-Cohesion: 0.13
-Nodes (15): 8.1 Overview, 8.2 How it Detects the Environment, 8.3 Local Filesystem Storage (Development), 8.4 Vercel Blob Storage (Production), 8.5 The Upload Flow (End to End), 8.6 Deleting Files (`lib/media.ts`), 8.7 File Naming Convention, 8.8 Configuring Next.js Image Component (+7 more)
-
-### Community 13 - "Community 13"
-Cohesion: 0.13
-Nodes (14): code:powershell (# Generate a random AUTH_SECRET), code:powershell (git add .), code:powershell (npx prisma migrate deploy), code:powershell (npx prisma db seed), code:prisma (datasource db {), Deployment Guide — New Canadian Drywall, PostgreSQL Connection Details, Prerequisites (+6 more)
-
-### Community 14 - "Community 14"
-Cohesion: 0.14
-Nodes (13): Additional Pages ✅, All Phases Complete — Ready for Deployment, Backend Progress Tracker, Notes, Phase 1: Database Setup ✅, Phase 2: Public API Routes ✅, Phase 3: Contact Form Integration ✅, Phase 4: Content Migration ✅ (+5 more)
-
-### Community 15 - "Community 15"
-Cohesion: 0.32
-Nodes (11): POST(), adminCareerNotificationHtml(), adminQuoteNotificationHtml(), careerConfirmationHtml(), isConfigured(), quoteConfirmationHtml(), sendAdminCareerNotification(), sendAdminQuoteNotification() (+3 more)
-
-### Community 16 - "Community 16"
+### Community 12 - "Error Handling"
 Cohesion: 0.27
 Nodes (6): angularDelta(), getCarouselParams(), mod(), ProjectCarousel(), STATS, Project
 
-### Community 17 - "Community 17"
-Cohesion: 0.20
-Nodes (10): 7.1 What is Resend?, 7.2 How it's configured (`lib/email.ts`), 7.3 Email Functions, 7.4 Fire-and-Forget Pattern, 7.5 How to Set Up Resend, 7.6 Email Templates, 7. Email System — Resend, code:typescript (const resendApiKey = process.env.RESEND_API_KEY;) (+2 more)
+### Community 13 - "Logger"
+Cohesion: 0.18
+Nodes (4): HomePage, PrivacyPolicy, TermsOfService, Public Facing Website
 
-### Community 18 - "Community 18"
-Cohesion: 0.20
-Nodes (9): Adding your real project images, code:bash (# 1. Create the Next.js project (run this in your terminal)), code:block2 (drywall-project/), code:tsx ({), code:tsx (export const metadata: Metadata = {), Drywall Project — Setup Guide, File structure after setup, One-time setup (+1 more)
+### Community 14 - "Prisma Database"
+Cohesion: 0.22
+Nodes (9): Authentication System, Rate Limiting System, createSession, getSession, hashPassword, requireAdmin, verifyPassword, checkFormRateLimit (+1 more)
 
-### Community 19 - "Community 19"
+### Community 15 - "Email Service"
 Cohesion: 0.31
 Nodes (8): collectLocalFiles(), DIR_MAP, LocalFile, main(), MIME_MAP, prisma, uploadToBlob(), walkFiles()
 
-### Community 20 - "Community 20"
+### Community 16 - "Rate Limiting"
 Cohesion: 0.29
 Nodes (5): NEXT_BTN_COLOR, NEXT_STATUS, STATUS_BG, STATUS_COLORS, Submission
 
-### Community 21 - "Community 21"
-Cohesion: 0.40
-Nodes (4): code:bash (npm run dev), Deploy on Vercel, Getting Started, Learn More
+### Community 17 - "API Types"
+Cohesion: 0.33
+Nodes (5): ApiErrorResponse, ApiResponse, ProjectResponse, ServiceResponse, StatsResponse
 
-### Community 22 - "Community 22"
+### Community 18 - "Seed Data"
 Cohesion: 0.40
 Nodes (4): buildCommand, framework, installCommand, outputDirectory
 
-### Community 25 - "Community 25"
+### Community 21 - "Admin Nav"
+Cohesion: 0.67
+Nodes (3): config, isAuthenticated(), middleware()
+
+### Community 22 - "Review Form"
 Cohesion: 0.67
 Nodes (3): hashPassword(), main(), prisma
 
+### Community 25 - "Terms Page"
+Cohesion: 0.67
+Nodes (3): Error Handling System, ApiError class, handleApiError
+
 ## Knowledge Gaps
-- **216 isolated node(s):** `extends`, `nextConfig`, `name`, `version`, `private` (+211 more)
+- **202 isolated node(s):** `extends`, `config`, `nextConfig`, `name`, `version` (+197 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **9 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **22 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Backend Documentation — New Canadian Drywall` connect `Community 1` to `Community 17`, `Community 10`, `Community 12`, `Community 6`?**
-  _High betweenness centrality (0.042) - this node is a cross-community bridge._
-- **Why does `5. API Routes — Every Endpoint` connect `Community 6` to `Community 1`?**
-  _High betweenness centrality (0.018) - this node is a cross-community bridge._
-- **Why does `4. The Database — Prisma + SQLite` connect `Community 10` to `Community 1`?**
-  _High betweenness centrality (0.013) - this node is a cross-community bridge._
-- **What connects `extends`, `nextConfig`, `name` to the rest of the system?**
-  _216 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `Community 0` be split into smaller, more focused modules?**
-  _Cohesion score 0.05925925925925926 - nodes in this community are weakly interconnected._
-- **Should `Community 1` be split into smaller, more focused modules?**
-  _Cohesion score 0.045454545454545456 - nodes in this community are weakly interconnected._
-- **Should `Community 2` be split into smaller, more focused modules?**
-  _Cohesion score 0.06451612903225806 - nodes in this community are weakly interconnected._
+- **Why does `DashboardLayout` connect `UI Components` to `Admin & Lib Core`?**
+  _High betweenness centrality (0.029) - this node is a cross-community bridge._
+- **Why does `handleApiError()` connect `Admin API Routes` to `Services`, `Contact Forms`, `Migration & Scripts`?**
+  _High betweenness centrality (0.028) - this node is a cross-community bridge._
+- **Why does `AdminDashboard` connect `Testimonials & Collaborations` to `Admin & Lib Core`?**
+  _High betweenness centrality (0.023) - this node is a cross-community bridge._
+- **Are the 2 inferred relationships involving `Admin CRUD Operations` (e.g. with `Public API` and `Media Management`) actually correct?**
+  _`Admin CRUD Operations` has 2 INFERRED edges - model-reasoned connections that need verification._
+- **What connects `extends`, `config`, `nextConfig` to the rest of the system?**
+  _202 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `Admin API Routes` be split into smaller, more focused modules?**
+  _Cohesion score 0.060126582278481014 - nodes in this community are weakly interconnected._
+- **Should `Admin & Lib Core` be split into smaller, more focused modules?**
+  _Cohesion score 0.055152394775036286 - nodes in this community are weakly interconnected._

@@ -59,11 +59,11 @@ export default function Hero() {
         </p>
 
         <h1 className={styles.heading}>
-          <span className={styles.line1}>Walls Built</span>
+          <span className={styles.line1}>Professional</span>
           <span className={styles.line2}>
-            To&nbsp;<em className={styles.accent}>Last.</em>
+            <em className={styles.accent}>Drywall</em>&nbsp;Services
           </span>
-          <span className={styles.line3}>Finished to Impress.</span>
+          <span className={styles.line3}>Built to Last. Finished to Impress.</span>
         </h1>
 
         <p className={styles.sub}>

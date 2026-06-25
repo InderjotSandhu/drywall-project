@@ -1,51 +1,63 @@
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
-import { requireAdminAPI } from '@/lib/auth';
+import { handleApiError } from '@/lib/errors';
+import { logger } from '@/lib/logger';
+
+const updateCollaborationSchema = z.object({
+  name: z.string().min(1).optional(),
+  logo: z.string().min(1).optional(),
+  description: z.string().optional().nullable(),
+  order: z.number().int().optional(),
+  isActive: z.boolean().optional(),
+});
 
 export async function GET(_request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const auth = await requireAdminAPI();
-  if (auth) return auth;
-
-  const { id } = await params;
-  const collaboration = await prisma.collaboration.findUnique({ where: { id: Number(id) } });
-  if (!collaboration) return NextResponse.json({ error: 'Not found' }, { status: 404 });
-  return NextResponse.json(collaboration);
+  try {
+    const { id } = await params;
+    const collaboration = await prisma.collaboration.findUnique({ where: { id: Number(id) } });
+    if (!collaboration) {
+      return NextResponse.json({ success: false, error: 'Not found' }, { status: 404 });
+    }
+    return NextResponse.json({ success: true, data: collaboration });
+  } catch (error) {
+    logger.error('Error fetching collaboration', error as Error);
+    return handleApiError(error);
+  }
 }
 
 export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const auth = await requireAdminAPI();
-  if (auth) return auth;
-
   try {
     const { id } = await params;
     const body = await request.json();
+    const data = updateCollaborationSchema.parse(body);
+
     const collaboration = await prisma.collaboration.update({
       where: { id: Number(id) },
-      data: {
-        name: body.name,
-        logo: body.logo,
-        description: body.description || null,
-        order: typeof body.order === 'number' ? body.order : 0,
-        isActive: body.isActive !== false,
-      },
+      data,
     });
-    return NextResponse.json(collaboration);
+
+    return NextResponse.json({ success: true, data: collaboration });
   } catch (error) {
-    console.error('Error updating collaboration:', error);
-    return NextResponse.json({ error: 'Failed to update collaboration' }, { status: 500 });
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({
+        success: false,
+        error: 'Validation failed',
+        details: error.issues.map(e => ({ field: e.path.join('.'), message: e.message })),
+      }, { status: 400 });
+    }
+    logger.error('Error updating collaboration', error as Error);
+    return handleApiError(error);
   }
 }
 
 export async function DELETE(_request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const auth = await requireAdminAPI();
-  if (auth) return auth;
-
   try {
     const { id } = await params;
     await prisma.collaboration.delete({ where: { id: Number(id) } });
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Error deleting collaboration:', error);
-    return NextResponse.json({ error: 'Failed to delete collaboration' }, { status: 500 });
+    logger.error('Error deleting collaboration', error as Error);
+    return handleApiError(error);
   }
 }

@@ -14,7 +14,7 @@ export default function AdminTestimonials() {
   useEffect(() => {
     fetch('/api/admin/testimonials')
       .then(res => res.json())
-      .then(d => { setItems(d.data); setLoading(false); })
+      .then(d => { setItems(d?.data ?? []); setLoading(false); })
       .catch(() => setLoading(false));
   }, []);
 

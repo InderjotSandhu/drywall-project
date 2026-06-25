@@ -1,38 +1,43 @@
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
-import { requireAdminAPI, hashPassword, verifyPassword } from '@/lib/auth';
+import { hashPassword, verifyPassword } from '@/lib/auth';
+import { handleApiError } from '@/lib/errors';
+import { logger } from '@/lib/logger';
+
+const changePasswordSchema = z.object({
+  currentPassword: z.string().min(1, 'Current password is required'),
+  newPassword: z.string().min(6, 'New password must be at least 6 characters'),
+});
 
 export async function POST(request: Request) {
-  const auth = await requireAdminAPI();
-  if (auth) return auth;
-
   try {
-    const { currentPassword, newPassword } = await request.json();
-
-    if (!currentPassword || !newPassword) {
-      return NextResponse.json({ error: 'Both passwords are required' }, { status: 400 });
-    }
-    if (newPassword.length < 6) {
-      return NextResponse.json({ error: 'New password must be at least 6 characters' }, { status: 400 });
-    }
+    const body = await request.json();
+    const data = changePasswordSchema.parse(body);
 
     const admin = await prisma.admin.findFirst();
     if (!admin) {
-      return NextResponse.json({ error: 'No admin account found' }, { status: 500 });
+      return NextResponse.json({ success: false, error: 'No admin account found' }, { status: 500 });
     }
 
-    if (!verifyPassword(currentPassword, admin.passwordHash)) {
-      return NextResponse.json({ error: 'Current password is incorrect' }, { status: 401 });
+    if (!verifyPassword(data.currentPassword, admin.passwordHash)) {
+      return NextResponse.json({ success: false, error: 'Current password is incorrect' }, { status: 401 });
     }
 
     await prisma.admin.update({
       where: { id: admin.id },
-      data: { passwordHash: hashPassword(newPassword) },
+      data: { passwordHash: hashPassword(data.newPassword) },
     });
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Error changing password:', error);
-    return NextResponse.json({ error: 'Failed to change password' }, { status: 500 });
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({
+        success: false,
+        error: (error as z.ZodError).issues[0]?.message || 'Validation failed',
+      }, { status: 400 });
+    }
+    logger.error('Error changing password', error as Error);
+    return handleApiError(error);
   }
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import styles from './ReviewForm.module.css';
 
 interface ReviewForm {
@@ -26,6 +26,7 @@ export default function ReviewForm({ onSuccess }: { onSuccess?: () => void }) {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const statusRef = useRef<HTMLDivElement>(null);
 
   const set = (field: keyof ReviewForm) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -72,9 +73,13 @@ export default function ReviewForm({ onSuccess }: { onSuccess?: () => void }) {
     }
   };
 
+  useEffect(() => {
+    if (statusRef.current) statusRef.current.focus();
+  }, [success, submitError]);
+
   if (success) {
     return (
-      <div className={styles.successBox}>
+      <div className={styles.successBox} role="alert" aria-live="polite" tabIndex={-1} ref={statusRef}>
         <div className={styles.successIcon}>
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
             stroke="#c9973a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -94,10 +99,10 @@ export default function ReviewForm({ onSuccess }: { onSuccess?: () => void }) {
   }
 
   return (
-    <form className={styles.form} onSubmit={submit} noValidate>
+    <form className={styles.form} onSubmit={submit} noValidate aria-label="Leave a review form">
 
       {submitError && (
-        <div className={styles.errorMsg} style={{ marginBottom: '16px', textAlign: 'center' }}>
+        <div className={styles.errorMsg} style={{ marginBottom: '16px', textAlign: 'center' }} role="alert" aria-live="assertive">
           {submitError}
         </div>
       )}

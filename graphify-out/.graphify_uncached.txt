@@ -1,0 +1,165 @@
+D:\Website Projects\drywall-project\.eslintrc.json
+D:\Website Projects\drywall-project\middleware.ts
+D:\Website Projects\drywall-project\next.config.ts
+D:\Website Projects\drywall-project\package.json
+D:\Website Projects\drywall-project\tsconfig.json
+D:\Website Projects\drywall-project\vercel.json
+D:\Website Projects\drywall-project\.hermes\package.json
+D:\Website Projects\drywall-project\app\layout.tsx
+D:\Website Projects\drywall-project\app\(site)\layout.tsx
+D:\Website Projects\drywall-project\app\(site)\page.tsx
+D:\Website Projects\drywall-project\app\(site)\privacy\page.tsx
+D:\Website Projects\drywall-project\app\(site)\terms\page.tsx
+D:\Website Projects\drywall-project\app\admin\error.tsx
+D:\Website Projects\drywall-project\app\admin\layout.tsx
+D:\Website Projects\drywall-project\app\admin\(dashboard)\error.tsx
+D:\Website Projects\drywall-project\app\admin\(dashboard)\layout.tsx
+D:\Website Projects\drywall-project\app\admin\(dashboard)\page.tsx
+D:\Website Projects\drywall-project\app\admin\(dashboard)\change-password\page.tsx
+D:\Website Projects\drywall-project\app\admin\(dashboard)\collaborations\page.tsx
+D:\Website Projects\drywall-project\app\admin\(dashboard)\collaborations\new\page.tsx
+D:\Website Projects\drywall-project\app\admin\(dashboard)\collaborations\[id]\edit\page.tsx
+D:\Website Projects\drywall-project\app\admin\(dashboard)\media\page.tsx
+D:\Website Projects\drywall-project\app\admin\(dashboard)\projects\page.tsx
+D:\Website Projects\drywall-project\app\admin\(dashboard)\projects\new\page.tsx
+D:\Website Projects\drywall-project\app\admin\(dashboard)\projects\[id]\edit\page.tsx
+D:\Website Projects\drywall-project\app\admin\(dashboard)\services\page.tsx
+D:\Website Projects\drywall-project\app\admin\(dashboard)\services\new\page.tsx
+D:\Website Projects\drywall-project\app\admin\(dashboard)\services\[id]\edit\page.tsx
+D:\Website Projects\drywall-project\app\admin\(dashboard)\submissions\page.tsx
+D:\Website Projects\drywall-project\app\admin\(dashboard)\testimonials\page.tsx
+D:\Website Projects\drywall-project\app\admin\(dashboard)\testimonials\new\page.tsx
+D:\Website Projects\drywall-project\app\admin\(dashboard)\testimonials\[id]\edit\page.tsx
+D:\Website Projects\drywall-project\app\admin\login\page.tsx
+D:\Website Projects\drywall-project\app\api\admin\change-password\route.ts
+D:\Website Projects\drywall-project\app\api\admin\collaborations\route.ts
+D:\Website Projects\drywall-project\app\api\admin\collaborations\[id]\route.ts
+D:\Website Projects\drywall-project\app\api\admin\media\route.ts
+D:\Website Projects\drywall-project\app\api\admin\media\associate\route.ts
+D:\Website Projects\drywall-project\app\api\admin\projects\route.ts
+D:\Website Projects\drywall-project\app\api\admin\projects\[id]\route.ts
+D:\Website Projects\drywall-project\app\api\admin\services\route.ts
+D:\Website Projects\drywall-project\app\api\admin\services\[id]\route.ts
+D:\Website Projects\drywall-project\app\api\admin\submissions\route.ts
+D:\Website Projects\drywall-project\app\api\admin\testimonials\route.ts
+D:\Website Projects\drywall-project\app\api\admin\testimonials\[id]\route.ts
+D:\Website Projects\drywall-project\app\api\auth\login\route.ts
+D:\Website Projects\drywall-project\app\api\auth\logout\route.ts
+D:\Website Projects\drywall-project\app\api\collaborations\route.ts
+D:\Website Projects\drywall-project\app\api\contact\career\route.ts
+D:\Website Projects\drywall-project\app\api\contact\quote\route.ts
+D:\Website Projects\drywall-project\app\api\contact\testimonial\route.ts
+D:\Website Projects\drywall-project\app\api\health\route.ts
+D:\Website Projects\drywall-project\app\api\projects\route.ts
+D:\Website Projects\drywall-project\app\api\projects\[id]\route.ts
+D:\Website Projects\drywall-project\app\api\services\route.ts
+D:\Website Projects\drywall-project\app\api\stats\route.ts
+D:\Website Projects\drywall-project\app\api\testimonials\route.ts
+D:\Website Projects\drywall-project\app\api\upload\route.ts
+D:\Website Projects\drywall-project\component\AdminNav.tsx
+D:\Website Projects\drywall-project\component\PushNotificationSetup.tsx
+D:\Website Projects\drywall-project\component\ReviewForm.tsx
+D:\Website Projects\drywall-project\component\About\About.tsx
+D:\Website Projects\drywall-project\component\About\index.ts
+D:\Website Projects\drywall-project\component\Collaborations\Collaborations.tsx
+D:\Website Projects\drywall-project\component\Collaborations\index.ts
+D:\Website Projects\drywall-project\component\Contact\Contact.tsx
+D:\Website Projects\drywall-project\component\Contact\index.ts
+D:\Website Projects\drywall-project\component\Footer\Footer.tsx
+D:\Website Projects\drywall-project\component\Footer\index.ts
+D:\Website Projects\drywall-project\component\Hero\Hero.tsx
+D:\Website Projects\drywall-project\component\Hero\index.ts
+D:\Website Projects\drywall-project\component\Layout\index.ts
+D:\Website Projects\drywall-project\component\Layout\PageWrapper.tsx
+D:\Website Projects\drywall-project\component\Navbar\index.ts
+D:\Website Projects\drywall-project\component\Navbar\Navbar.tsx
+D:\Website Projects\drywall-project\component\ProjectCarousel\index.ts
+D:\Website Projects\drywall-project\component\ProjectCarousel\ProjectCarousel.tsx
+D:\Website Projects\drywall-project\component\ProjectCarousel\ProjectCarousel.types.ts
+D:\Website Projects\drywall-project\component\Services\index.ts
+D:\Website Projects\drywall-project\component\Services\Services.tsx
+D:\Website Projects\drywall-project\component\Testimonials\index.ts
+D:\Website Projects\drywall-project\component\Testimonials\Testimonials.tsx
+D:\Website Projects\drywall-project\lib\api-types.ts
+D:\Website Projects\drywall-project\lib\auth.ts
+D:\Website Projects\drywall-project\lib\email.ts
+D:\Website Projects\drywall-project\lib\errors.ts
+D:\Website Projects\drywall-project\lib\logger.ts
+D:\Website Projects\drywall-project\lib\media.ts
+D:\Website Projects\drywall-project\lib\prisma.ts
+D:\Website Projects\drywall-project\lib\rate-limit.ts
+D:\Website Projects\drywall-project\prisma\seed.ts
+D:\Website Projects\drywall-project\prisma\migrations\20260519141411_init\migration.sql
+D:\Website Projects\drywall-project\scripts\migrate-local-to-blob.ts
+D:\Website Projects\drywall-project\README.md
+D:\Website Projects\drywall-project\.hermes\skills\api-design\SKILL.md
+D:\Website Projects\drywall-project\.hermes\skills\backend-patterns\SKILL.md
+D:\Website Projects\drywall-project\.hermes\skills\database-migrations\SKILL.md
+D:\Website Projects\drywall-project\.hermes\skills\deployment-patterns\SKILL.md
+D:\Website Projects\drywall-project\.hermes\skills\design-system\SKILL.md
+D:\Website Projects\drywall-project\.hermes\skills\e2e-testing\SKILL.md
+D:\Website Projects\drywall-project\.hermes\skills\error-handling\SKILL.md
+D:\Website Projects\drywall-project\.hermes\skills\frontend-a11y\SKILL.md
+D:\Website Projects\drywall-project\.hermes\skills\frontend-patterns\SKILL.md
+D:\Website Projects\drywall-project\.hermes\skills\git-workflow\SKILL.md
+D:\Website Projects\drywall-project\.hermes\skills\graphify\SKILL.md
+D:\Website Projects\drywall-project\.hermes\skills\nextjs-turbopack\SKILL.md
+D:\Website Projects\drywall-project\.hermes\skills\postgres-patterns\SKILL.md
+D:\Website Projects\drywall-project\.hermes\skills\prisma-patterns\SKILL.md
+D:\Website Projects\drywall-project\.hermes\skills\react-patterns\SKILL.md
+D:\Website Projects\drywall-project\.hermes\skills\react-performance\SKILL.md
+D:\Website Projects\drywall-project\.hermes\skills\react-testing\SKILL.md
+D:\Website Projects\drywall-project\.hermes\skills\security-review\cloud-infrastructure-security.md
+D:\Website Projects\drywall-project\.hermes\skills\security-review\SKILL.md
+D:\Website Projects\drywall-project\.hermes\skills\seo\SKILL.md
+D:\Website Projects\drywall-project\.hermes\skills\tdd-workflow\SKILL.md
+D:\Website Projects\drywall-project\.hermes\skills\verification-loop\SKILL.md
+D:\Website Projects\drywall-project\docs\API_TESTING.md
+D:\Website Projects\drywall-project\docs\BACKEND_DOCUMENTATION.md
+D:\Website Projects\drywall-project\docs\BACKEND_PROGRESS.md
+D:\Website Projects\drywall-project\docs\DEPLOY.md
+D:\Website Projects\drywall-project\docs\ISSUES_LOG.md
+D:\Website Projects\drywall-project\docs\performance-audit-log.md
+D:\Website Projects\drywall-project\docs\SETUP.md
+D:\Website Projects\drywall-project\Sessions\2026-05-20_1943.txt
+D:\Website Projects\drywall-project\Sessions\2026-05-20_2137.txt
+D:\Website Projects\drywall-project\Sessions\2026-05-21_1423.txt
+D:\Website Projects\drywall-project\Sessions\2026-05-21_admin_timezone_fix.txt
+D:\Website Projects\drywall-project\Sessions\2026-06-10_0415.txt
+D:\Website Projects\drywall-project\Sessions\2026-06-23_2215.txt
+D:\Website Projects\drywall-project\Sessions\session-ses_1082.md
+D:\Website Projects\drywall-project\public\file.svg
+D:\Website Projects\drywall-project\public\globe.svg
+D:\Website Projects\drywall-project\public\next.svg
+D:\Website Projects\drywall-project\public\vercel.svg
+D:\Website Projects\drywall-project\public\window.svg
+D:\Website Projects\drywall-project\public\collaborations\IMG_8705.jpeg
+D:\Website Projects\drywall-project\public\collaborations\IMG_8706.jpeg
+D:\Website Projects\drywall-project\public\collaborations\IMG_8707.jpeg
+D:\Website Projects\drywall-project\public\images\Bel-for Office Stoney creek\IMG_8702.jpeg
+D:\Website Projects\drywall-project\public\images\Brydon Drive Commercial\IMG_8054.jpeg
+D:\Website Projects\drywall-project\public\images\Brydon Drive Commercial\IMG_8055.jpeg
+D:\Website Projects\drywall-project\public\images\Burlock Restaurant\06B74D77-EE9A-4DDE-ADE3-1C5DA3256A22.jpeg
+D:\Website Projects\drywall-project\public\images\Burlock Restaurant\37C0DCC8-F57D-40AB-8C6B-B01355FA0480.jpeg
+D:\Website Projects\drywall-project\public\images\Burlock Restaurant\5481DA00-8B44-4C8A-A7B2-1057AD78ECCA.jpeg
+D:\Website Projects\drywall-project\public\images\Burlock Restaurant\CE5F2879-AE7A-4BDE-9217-5288E007D2DC.jpeg
+D:\Website Projects\drywall-project\public\images\Burlock Restaurant\F14A2800-ECA7-430B-938C-A39D6ECD5B6C.jpeg
+D:\Website Projects\drywall-project\public\images\Grimsby Plaza\IMG_8194.jpeg
+D:\Website Projects\drywall-project\public\images\Photos Ancaster\IMG_8378.jpeg
+D:\Website Projects\drywall-project\public\images\Photos Ancaster\IMG_8379.jpeg
+D:\Website Projects\drywall-project\public\images\Photos Ancaster\IMG_8383.jpeg
+D:\Website Projects\drywall-project\public\images\Photos Ancaster\IMG_8384.jpeg
+D:\Website Projects\drywall-project\public\images\Photos Ancaster\IMG_8385.jpeg
+D:\Website Projects\drywall-project\public\images\Photos Ancaster\IMG_8386.jpeg
+D:\Website Projects\drywall-project\public\images\Photos Ancaster\IMG_8391.jpeg
+D:\Website Projects\drywall-project\public\images\Photos Ancaster\IMG_8392.jpeg
+D:\Website Projects\drywall-project\public\images\Photos Ancaster\IMG_8393.jpeg
+D:\Website Projects\drywall-project\public\images\Photos Ancaster\IMG_8394.jpeg
+D:\Website Projects\drywall-project\public\images\Photos Ancaster\IMG_8395.jpeg
+D:\Website Projects\drywall-project\public\images\Sir Modesto Custom House\IMG_8212.jpeg
+D:\Website Projects\drywall-project\public\videos\intro.mp4
+D:\Website Projects\drywall-project\public\videos\Brydon Drive Commercial\IMG_8056.mov
+D:\Website Projects\drywall-project\public\videos\Photos Ancaster\IMG_8376.mov
+D:\Website Projects\drywall-project\public\videos\Photos Ancaster\IMG_8377.mov
+D:\Website Projects\drywall-project\public\videos\Sir Modesto Custom House\IMG_5925.mov
+D:\Website Projects\drywall-project\public\videos\Sir Modesto Custom House\IMG_5936.mov
