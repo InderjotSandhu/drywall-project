@@ -1,5 +1,6 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { NextResponse } from 'next/server';
 import crypto from 'crypto';
 
 const SESSION_KEY = 'admin_token';
@@ -71,6 +72,14 @@ export async function getSession(): Promise<boolean> {
 export async function requireAdmin(): Promise<void> {
   const authenticated = await getSession();
   if (!authenticated) redirect('/admin/login');
+}
+
+export async function requireAdminAPI(): Promise<NextResponse | null> {
+  const authenticated = await getSession();
+  if (!authenticated) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+  return null;
 }
 
 export function safeCompare(a: string, b: string): boolean {
