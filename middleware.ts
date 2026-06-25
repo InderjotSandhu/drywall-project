@@ -15,8 +15,8 @@ function buildCsp(nonce: string): string {
   const cspNonce = `'nonce-${nonce}'`;
   return [
     `default-src ${SELF}`,
-    `script-src ${SELF} ${cspNonce} 'strict-dynamic' https://vercel.live`,
-    `style-src ${SELF} ${cspNonce} https://fonts.googleapis.com`,
+    `script-src ${SELF} ${cspNonce}`,
+    `style-src ${SELF} 'unsafe-inline' https://fonts.googleapis.com`,
     `img-src ${SELF} data: https: https://public.blob.vercel-storage.com`,
     `font-src ${SELF} https://fonts.gstatic.com`,
     `connect-src ${SELF} https://vercel.live ws: wss:`,
