@@ -22,8 +22,8 @@ export default function EditService() {
       .then(r => {
         const d = r.data;
         setForm({ id: d.id, title: d.title, description: d.description, detail: d.detail, order: d.order, isActive: d.isActive });
-        setTags(d.tags.map((t: { label: string }) => t.label));
-        setFeatures(d.features.map((f: { title: string; description: string }) => ({ title: f.title, description: f.description })));
+        setTags((d.tags || []).map((t: { label: string }) => t.label));
+        setFeatures((d.features || []).map((f: { title: string; description: string }) => ({ title: f.title, description: f.description })));
         setLoading(false);
       })
       .catch(() => setLoading(false));
